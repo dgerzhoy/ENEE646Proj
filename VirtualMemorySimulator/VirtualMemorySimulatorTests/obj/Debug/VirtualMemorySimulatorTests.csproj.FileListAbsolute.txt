@@ -1,0 +1,8 @@
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Debug\VirtualMemorySimulatorTests.dll
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Debug\VirtualMemorySimulatorTests.pdb
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Debug\VirtualMemorySimulator.exe
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Debug\VirtualMemorySimulator.pdb
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\obj\Debug\VirtualMemorySimulatorTests.csprojResolveAssemblyReference.cache
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\obj\Debug\VirtualMemorySimulatorTests.dll
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulatorTests\obj\Debug\VirtualMemorySimulatorTests.pdb

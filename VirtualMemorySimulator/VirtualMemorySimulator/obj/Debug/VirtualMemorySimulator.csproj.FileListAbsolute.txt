@@ -1,0 +1,8 @@
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\bin\Debug\VirtualMemorySimulator.exe.config
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\bin\Debug\VirtualMemorySimulator.exe
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\bin\Debug\VirtualMemorySimulator.pdb
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.MainForm.resources
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.Properties.Resources.resources
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.csproj.GenerateResource.Cache
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.exe
+C:\Users\derzh\Documents\Visual Studio 2015\Projects\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.pdb
