@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CacheFieldParserTests.cs" />
+    <Compile Include="CacheTests.cs" />
     <Compile Include="dTLBTests.cs" />
     <Compile Include="iTLBTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

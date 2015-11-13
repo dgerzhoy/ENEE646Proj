@@ -26,13 +26,13 @@ namespace VirtualMemorySimulator
 
         
         
-        public static ulong searchICaches(dL1Cache dl1Cache, Cache il1Cache, L2Cache l2Cache, VL3Cache vl3Cache, ulong blockTag)
+        public static ulong searchICaches(Cache dl1Cache, Cache il1Cache, Cache l2Cache, VL3Cache vl3Cache, ulong blockTag)
         {
             OneTwentyEightBitInstruction result = OneTwentyEightBitInstruction.BuildInstruction(0,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6);// il1Cache.search(blockTag);
 
             //check if it is found
             if(result == null){
-                result = l2Cache.search(blockTag);
+                //result = l2Cache.search(blockTag);
 
                 if(result == null) 
                 {

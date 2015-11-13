@@ -8,15 +8,15 @@ namespace VirtualMemorySimulator
 {
     public class Cache
     {
-        private int SETS;
-        private int BANKS;
-        private int BLOCK_SIZE;
-        private int TAG_WIDTH;
-        private int SET_IDX_WIDTH;
-        private byte[][][] entries;
+        public int SETS;
+        public int BANKS;
+        public int BLOCK_SIZE;
+        public int TAG_WIDTH;
+        public int SET_IDX_WIDTH;
+        //private byte[][][] entries;
         private uint[][] meta;
 
-        //Comment
+        //Comment 1
 
         private LRU_Manager LRU;
 
@@ -49,16 +49,16 @@ namespace VirtualMemorySimulator
                 throw new Exception("Passed-in Value is not valid Cache_Type Enumeration. This should not be possible");
             }
 
-            entries = new byte[BANKS][][];
+            //entries = new byte[BANKS][][];
             meta = new uint[BANKS][];
 
             for (int i = 0; i < BANKS; i++)
             {
-                entries[i] = new byte[SETS][];
                 meta[i] = new uint[SETS];
+             
                 for (int j = 0; j < SETS; j++)
                 {
-                    entries[i][j] = new byte[BLOCK_SIZE];
+                    meta[i][j] = 0;
                 }
             }
 
@@ -66,35 +66,21 @@ namespace VirtualMemorySimulator
         }
 
         //Read numBytes bytes
-        private byte[] ReadBytes(Tuple<int, ushort, byte, uint> BankSetBlockTag, int numBytes)
+        public void ReadBlock (Block BankSetBlockTag)
         {
-            int bank = BankSetBlockTag.Item1;
-            ushort set = BankSetBlockTag.Item2;
-            byte block = BankSetBlockTag.Item3;
-
-            byte[] out_bytes = new byte[numBytes];
-
-            for (int i = 0; i < numBytes; i++)
-            {
-                out_bytes[i] = entries[bank][set][block + i];
-            }
+            int bank = BankSetBlockTag.bank;
+            ushort set = BankSetBlockTag.set;
 
             LRU.toFront(bank, set);
 
-            return out_bytes;
         }
         //Sets number of bytes in array (A Write, not a block replacement)
-        private void WriteBytes(Tuple<int, ushort, byte, uint> BankSetBlockTag, byte[] value)
+        public void WriteBlock(Block BankSetBlockTag)
         {
-            int bank = BankSetBlockTag.Item1;
-            ushort set = BankSetBlockTag.Item2;
-            byte block = BankSetBlockTag.Item3;
-            uint Tag = BankSetBlockTag.Item4;
+            int bank = BankSetBlockTag.bank;
+            ushort set = BankSetBlockTag.set;
+            uint Tag = BankSetBlockTag.tag;
 
-            for (int i = 0; i < value.Count(); i++)
-            {
-                entries[bank][set][block++] = value[i];
-            }
             LRU.toFront(bank, set);
 
             //Set Dirty Bit
@@ -102,56 +88,68 @@ namespace VirtualMemorySimulator
 
         }
 
-
-        //Read 1 Byte (8 bits)
-        public byte ReadByte(Tuple<int, ushort, byte, uint> BankSetBlockTag)
+        //Replaces the LRU block in the set with the block given.
+        //Returns evicted block if dirty 
+        public Block ReplaceBlock(Block BankSetBlockTag)
         {
-            int bank = BankSetBlockTag.Item1;
-            ushort set = BankSetBlockTag.Item2;
-            byte block = BankSetBlockTag.Item3;
+            int bank = BankSetBlockTag.bank;   //Bank in cache above
+            ushort set = BankSetBlockTag.set;
+            uint tag = BankSetBlockTag.tag;
 
-            LRU.toFront(bank, set);
+            Block Evicted = null;
+            int Evicted_Bank = LRU.Get_LRU(set);
+            uint Evicted_Tag;
 
-            return entries[bank][set][block];
+            if (CacheFieldParser.getDirtyBitFromEntry(meta[Evicted_Bank][set],TAG_WIDTH))
+            {
+                Evicted_Tag = CacheFieldParser.getTagFromEntry(meta[Evicted_Bank][set],TAG_WIDTH);
+
+                //LRU
+                Evicted = new Block(Evicted_Bank, set, 0, Evicted_Tag);
+            }
+            //Replace old meta data with old bit to zero for this block
+            meta[Evicted_Bank][set] = CacheFieldParser.generateMetaEntry(true, false, tag, TAG_WIDTH);
+            LRU.toFront(Evicted_Bank, set); //Put block at back of Queue
+
+            return Evicted;
         }
 
-        //Read 4 bytes (32 bits)
-        public byte[] Read32(Tuple<int, ushort, byte, uint> BankSetBlockTag)
+        /// <summary>
+        /// Updates block content from lower level block (doesn't actually, because we do not track data, but it would! Instead moves to MRU.
+        /// Must find block with tag anb set first, since data comes from another cache
+        /// </summary>
+        public void UpdateBlock(Block BankSetBlockTag)
         {
-            return ReadBytes(BankSetBlockTag, 4);
+            ushort set = BankSetBlockTag.set;
+            uint tag = BankSetBlockTag.tag;
+
+            uint Meta_Curr;
+            bool Meta_Valid;
+            uint Meta_Tag;
+
+            //Find it in this cache
+            for (int b = 0; b < BANKS; b++) //Bank Iterator
+            {
+                Meta_Curr = meta[b][set];
+                //Search Metadata at set index
+                Meta_Tag = CacheFieldParser.getTagFromEntry(Meta_Curr, TAG_WIDTH);
+                if (Meta_Tag == tag)
+                {
+                    Meta_Valid = CacheFieldParser.getValidBitFromEntry(Meta_Curr, TAG_WIDTH);
+                    if (Meta_Valid)
+                    {
+                        LRU.toFront(b,set);
+                        return;
+                    }
+                }
+            }
+            //If it gets to this point the cache block being updated is not in this cache, which should not happen. This function can only be used on the superset cache of a dirty cache block
+            throw new Exception("UpdateBlock Function: block not found - This function can only be used on the superset cache of a dirty cache block");
         }
 
-        //Read 8 bytes (64 bits)
-        public byte[] Read64(Tuple<int, ushort, byte, uint> BankSetBlockTag)
-        {
-            return ReadBytes(BankSetBlockTag, 8);
-        }
 
-        //Read 16 bytes (128 bits)
-        public byte[] Read128(Tuple<int, ushort, byte, uint> BankSetBlockTag)
-        {
-            return ReadBytes(BankSetBlockTag, 8);
-        }
-
-        //Read Entire Block (Used to copy data from cache to cache)
-        //Also unsets the dirty bit
-        public byte[] WriteBackBlock(Tuple<int, ushort, byte, uint> BankSetBlockTag)
-        {
-            int bank = BankSetBlockTag.Item1;
-            ushort set = BankSetBlockTag.Item2;
-            byte block = BankSetBlockTag.Item3;
-            uint tag = BankSetBlockTag.Item4;
-
-            //Set Dirty bit to zero for this block
-            meta[bank][set] = CacheFieldParser.generateMetaEntry(true, false, tag, TAG_WIDTH);
-            LRU.toFront(bank,set);
-
-            return entries[bank][set];
-        }
-
-
-        //Returns the BankSetBlockTag tuple if the
-        public Tuple<int, ushort, byte, uint> search(uint physical_addr_24, ushort page_offset_12)
+        //Returns the Bank Set Block and Tag for the found block. Null if not found.
+        public Block search(uint physical_addr_24, ushort page_offset_12)
         {
             uint block_tag;
             byte block_offset;
@@ -160,10 +158,11 @@ namespace VirtualMemorySimulator
             //Metadata content
             uint Meta_Curr;
             bool Meta_Valid;
-            bool Meta_Dirty;
             uint Meta_Tag;
 
-            ulong physical_addr_36 = (((ulong)(physical_addr_24 & 0x0FFFFFF)) << 13) | ((ulong)(((uint)page_offset_12) & 0x0FFF)); //23 bit physical address
+            ulong phys24_tmp = (((ulong)(physical_addr_24 & 0x0FFFFFF)) << 12);
+            ulong page_offs12_tmp = ((ulong)(((uint)page_offset_12) & 0x0FFF));
+            ulong physical_addr_36 = phys24_tmp | page_offs12_tmp; //23 bit physical address
 
             block_tag = CacheFieldParser.getTagFromPhysAddr(physical_addr_36, TAG_WIDTH);
             set_index = CacheFieldParser.getSetIdxFromPhysAddr(physical_addr_36, SET_IDX_WIDTH);
@@ -180,7 +179,7 @@ namespace VirtualMemorySimulator
                     if (Meta_Valid)
                     {
                         //Return bank and all relevant variables to control logic, to be used for read or write
-                        return new Tuple<int, ushort, byte, uint>(b, set_index, block_offset, block_tag); 
+                        return new Block (b, set_index, block_offset, block_tag); 
                     }
                 }
             }

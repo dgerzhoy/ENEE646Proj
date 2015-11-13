@@ -78,5 +78,20 @@ namespace VirtualMemorySimulator
             return retVal;
         }
 
+        //Generates a 24 bit physical address and 12 bit page offset from a block value (for testing purposes)
+        public static Tuple<uint,ushort> generatePhysicalAddr36Pair(Block block, int tagWidth, int SetIdxWidth)
+        {
+            uint block_offs_tmp = block.block_offset;
+            uint set_tmp = ((uint)block.set << 6);
+            uint block_mask = (uint)((1 << (6 + SetIdxWidth)) - 1);
+            uint block_tag_tmp = (uint)((block.tag & block_mask) << (6 + SetIdxWidth));
+
+            uint retVal36 = block_tag_tmp | set_tmp | block_offs_tmp;
+            uint retVal24 = (retVal36 >> 12) & 0x0FFFFFF; 
+            ushort retVal12 = (ushort)(retVal36 & 0x0FFF);
+
+            return new Tuple<uint,ushort>(retVal24, retVal12);
+        }
+
     }
 }

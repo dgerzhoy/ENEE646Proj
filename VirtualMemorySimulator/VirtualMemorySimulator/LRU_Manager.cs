@@ -48,6 +48,14 @@ namespace VirtualMemorySimulator
             entries[front][index] = value; //Set the entry
         }
 
+        //Get least recently used entry at specified row(index) to value
+        public int Get_LRU(ulong index)
+        {
+            int front = LRU[index].Peek(); //Pop LRU element for this entry (which bank was LRU)
+
+            return front;
+        }
+
         //Set least recently used entry at specified row(index) to value
         public void Set_LRU(ulong index, ref byte[][][] entries, byte[] value)
         {
