@@ -8,41 +8,72 @@ namespace VirtualMemorySimulator
 {
     public class SimulationRunner
     {
-        private dL1Cache dl1Cache;
-        private Cache il1Cache;
-        private L2Cache l2Cache;
-        private VL3Cache vl3Cache;
-        private iTLB itlb;
-        private dTLB dtlb;
-        private TLB tlb;
-        private VirtualPageTable vpt;
-        private String filePath;
-        private List<Instruction> instructions;
+        private MemoryManagementUnit mmu;
 
-        public SimulationRunner(String filePath)
+        public SimulationRunner(String filePath, ulong addressSpaceSize, ulong numInstructions, uint loadInstructionFrequency, uint storeInstructionFrequency, uint testBranchFrequency, uint otherInstructionFrequency, String logFilePath, uint numberOfOperands)
         {
-            dl1Cache = new dL1Cache();
-            il1Cache = new Cache(Constants.CACHE_TYPE.iL1Cache);
-            l2Cache = new L2Cache();
-            vl3Cache = new VL3Cache();
-            itlb = new iTLB();
-            dtlb = new dTLB();
-            tlb = new TLB();
-            vpt = new VirtualPageTable();
-            this.instructions = parseInstructions(filePath);
+
+            ConfigInfo.VirtualAddressSpaceSize = addressSpaceSize;
+            ConfigInfo.LoadInstructionFrequency = loadInstructionFrequency;
+            ConfigInfo.NumberOfInstructions = numInstructions;
+            ConfigInfo.StoreInstructionFrequency = storeInstructionFrequency;
+            ConfigInfo.TestBranchFrequency = testBranchFrequency;
+            ConfigInfo.OtherInstructionFrequency = otherInstructionFrequency;
+            ConfigInfo.LogFilePath = logFilePath;
+            ConfigInfo.NumberOfOperands = numberOfOperands;
+            ConfigInfo.InstructionFilePath = filePath;
+            mmu = new MemoryManagementUnit();
         }
 
         public void Run()
         {
-            foreach (Instruction instruction in instructions){
 
+            InstructionGenerator.GenerateInstructions(
+                ConfigInfo.VirtualAddressSpaceSize,
+                ConfigInfo.NumberOfInstructions,
+                ConfigInfo.LoadInstructionFrequency,
+                ConfigInfo.StoreInstructionFrequency,
+                ConfigInfo.TestBranchFrequency,
+                ConfigInfo.OtherInstructionFrequency,
+                ConfigInfo.NumberOfOperands,
+                ConfigInfo.InstructionFilePath);
+
+            ConfigInfo.instructions = InstructionGenerator.parseInstructionFile(ConfigInfo.InstructionFilePath);
+
+            Instruction instruction;
+            ulong instructionAddress;
+            uint penalty;
+            uint result;
+
+            while (ConfigInfo.instructions.Count > 0)
+            {
+                instruction = ConfigInfo.instructions.Dequeue();
+                instructionAddress = AddressGenerator.GenerateVirtualAddress(ConfigInfo.VirtualAddressSpaceSize);
+
+                if (instruction.opcode == ConfigInfo.LOAD_INSTRUCTION)
+                {
+                    //Fetch Instruction
+                    //Fetch operands
+                }
+                else if (instruction.opcode == ConfigInfo.STORE_INSTRUCTION)
+                {
+                    //Fetch operand
+
+                }
+                else if (instruction.opcode == ConfigInfo.TEST_BRANCH_INSTRUCTION)
+                {
+                    //Fetch operand
+
+                }
+                else if (instruction.opcode == ConfigInfo.OTHER_INSTRUCTION)
+                {
+                    //Fetch operand
+
+                }
+
+
+            
             }
-        }
-
-        //parse the file with the instructions triple
-        private List<Instruction> parseInstructions(String filePath)
-        {
-            return null;
         }
     }
 }

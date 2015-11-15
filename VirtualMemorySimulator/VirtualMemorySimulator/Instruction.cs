@@ -8,21 +8,15 @@ namespace VirtualMemorySimulator
 {
     public class Instruction
     {
-        public uint opcode;
-        public uint numOperands;
+        public byte opcode;
+        public byte numOperands;
         public ulong branchAddress;
 
-        public Instruction(String instruction)
+        public Instruction(byte opcode, byte numOperands, ulong branchAddress)
         {
-            parseInstruction(instruction);
-        }
-
-        //parse the instruction
-        private void parseInstruction(String instruction)
-        {
-            opcode = 0;
-            numOperands = 0;
-            branchAddress = 0;
+            this.opcode =opcode;
+            this.numOperands = numOperands;
+            this.branchAddress = branchAddress;
         }
     }
 }

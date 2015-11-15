@@ -50,6 +50,9 @@
     <Compile Include="Block.cs" />
     <Compile Include="BlockTagGenerator.cs" />
     <Compile Include="CacheFieldParser.cs" />
+    <Compile Include="ConfigInfo.cs" />
+    <Compile Include="FileWriter.cs" />
+    <Compile Include="InstructionGenerator.cs" />
     <Compile Include="MemoryManagementUnit.cs" />
     <Compile Include="Search.cs" />
     <Compile Include="Constants.cs" />

@@ -26,9 +26,9 @@ namespace VirtualMemorySimulator
             }
         }
 
-        public static ulong GenerateFortyEightBitVirtualAddress()
+        public static ulong GenerateVirtualAddress(ulong virtualAddressSize)
         {
-            return random.Next(0xFFFFFFFFFFFF-1);
+            return random.Next(virtualAddressSize - 1);
         }
 
         public static ulong GeneratorSixtyBitVirtualPhysicalPair()
