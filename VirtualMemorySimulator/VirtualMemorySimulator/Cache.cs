@@ -40,7 +40,7 @@ namespace VirtualMemorySimulator
             } else if (CacheType.Equals(Constants.CACHE_TYPE.L2Cache))
             {
                 SETS = 512;
-                BANKS = 5;
+                BANKS = 8;
                 BLOCK_SIZE = 64;
                 TAG_WIDTH = 21;
                 SET_IDX_WIDTH = 9;

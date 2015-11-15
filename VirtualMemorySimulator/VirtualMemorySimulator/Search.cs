@@ -5,19 +5,19 @@ using System.Threading.Tasks;
 
 namespace VirtualMemorySimulator
 {
-    public class CacheSearchUtility
+    public class Search
     {
-        private static CacheSearchUtility instance;
+        private static Search instance;
 
-        private CacheSearchUtility() { }
+        private Search() { }
 
-        public static CacheSearchUtility Instance
+        public static Search Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new CacheSearchUtility();
+                    instance = new Search();
 
                 }
                 return instance;
@@ -26,9 +26,11 @@ namespace VirtualMemorySimulator
 
         
         
-        public static ulong searchICaches(Cache dl1Cache, Cache il1Cache, Cache l2Cache, VL3Cache vl3Cache, ulong blockTag)
+        public static ulong searchCaches(Cache dL1Cache, Cache il1Cache, Cache l2Cache, VL3Cache vl3Cache, uint PhysicalAddr24, ushort PageOffset)
         {
-            OneTwentyEightBitInstruction result = OneTwentyEightBitInstruction.BuildInstruction(0,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6);// il1Cache.search(blockTag);
+            OneTwentyEightBitInstruction result = OneTwentyEightBitInstruction.BuildInstruction(0,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6);
+            
+            il1Cache.search(PhysicalAddr24, PageOffset);
 
             //check if it is found
             if(result == null){
