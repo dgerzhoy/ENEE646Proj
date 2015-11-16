@@ -10,11 +10,13 @@ namespace VirtualMemorySimulator
     {
         private const int ENTRIES = 1024;
         private const int BANKS = 4;
-        private ulong[] entries;
+        //private ulong[] entries;
+        private List<ulong> entries;
 
         public VirtualPageTable()
         {
-            entries = new ulong[ENTRIES];
+            //entries = new ulong[ENTRIES];
+            entries = new List<ulong>();
         }
 
         public ulong getEntry(int bank, int entry)

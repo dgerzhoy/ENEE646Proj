@@ -26,7 +26,7 @@ namespace VirtualMemorySimulator
             {
                 SETS = 128;
                 BANKS = 4;
-                BLOCK_SIZE = 64;
+                BLOCK_SIZE = 64;//bytes
                 TAG_WIDTH = 23;
                 SET_IDX_WIDTH = 7;
             }
@@ -34,14 +34,14 @@ namespace VirtualMemorySimulator
             {
                 SETS = 64;
                 BANKS = 8;
-                BLOCK_SIZE = 64;
+                BLOCK_SIZE = 64;//bytes
                 TAG_WIDTH = 24;
                 SET_IDX_WIDTH = 6;
             } else if (CacheType.Equals(Constants.CACHE_TYPE.L2Cache))
             {
                 SETS = 512;
                 BANKS = 8;
-                BLOCK_SIZE = 64;
+                BLOCK_SIZE = 64;//bytes
                 TAG_WIDTH = 21;
                 SET_IDX_WIDTH = 9;
             } else
@@ -160,9 +160,11 @@ namespace VirtualMemorySimulator
             bool Meta_Valid;
             uint Meta_Tag;
 
-            ulong phys24_tmp = (((ulong)(physical_addr_24 & 0x0FFFFFF)) << 12);
-            ulong page_offs12_tmp = ((ulong)(((uint)page_offset_12) & 0x0FFF));
-            ulong physical_addr_36 = phys24_tmp | page_offs12_tmp; //23 bit physical address
+            //ulong phys24_tmp = (((ulong)(physical_addr_24 & 0x0FFFFFF)) << 12);
+            //ulong page_offs12_tmp = ((ulong)(((uint)page_offset_12) & 0x0FFF));
+            //ulong physical_addr_36 = phys24_tmp | page_offs12_tmp; //23 bit physical address
+
+            ulong physical_addr_36 = CacheFieldParser.generatePhysAddr36(physical_addr_24, page_offset_12);
 
             block_tag = CacheFieldParser.getTagFromPhysAddr(physical_addr_36, TAG_WIDTH);
             set_index = CacheFieldParser.getSetIdxFromPhysAddr(physical_addr_36, SET_IDX_WIDTH);

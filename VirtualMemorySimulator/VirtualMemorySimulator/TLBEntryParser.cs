@@ -61,5 +61,12 @@ namespace VirtualMemorySimulator
             return virtualAddress >> 41 & 0x1F;
         }
 
+        public static ulong generatePTE(ulong VirtualAddress)
+        {
+
+
+            return 0;
+        }
+
     }
 }

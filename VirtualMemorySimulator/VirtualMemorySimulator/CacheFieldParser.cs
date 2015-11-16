@@ -78,12 +78,12 @@ namespace VirtualMemorySimulator
             return retVal;
         }
 
-        //Generates a 24 bit physical address and 12 bit page offset from a block value (for testing purposes)
+        //Generates a 24 bit physical address and 12 bit page offset from a block value
         public static Tuple<uint,ushort> generatePhysicalAddr36Pair(Block block, int tagWidth, int SetIdxWidth)
         {
             uint block_offs_tmp = block.block_offset;
             uint set_tmp = ((uint)block.set << 6);
-            uint block_mask = (uint)((1 << (6 + SetIdxWidth)) - 1);
+            uint block_mask = (uint)((1 << (tagWidth)) - 1);
             uint block_tag_tmp = (uint)((block.tag & block_mask) << (6 + SetIdxWidth));
 
             uint retVal36 = block_tag_tmp | set_tmp | block_offs_tmp;
@@ -91,6 +91,33 @@ namespace VirtualMemorySimulator
             ushort retVal12 = (ushort)(retVal36 & 0x0FFF);
 
             return new Tuple<uint,ushort>(retVal24, retVal12);
+        }
+
+        //Combines 24 bit physical address from tlb and 12 bit page offset from virtual address into 36 bit physical address
+        public static ulong generatePhysAddr36(uint physical_addr_24, ushort page_offset_12)
+        {
+            //uint combinedBytes = convertBytesToUint(b0, b1, b2, b3);
+
+            ulong phys24_tmp = (((ulong)(physical_addr_24 & 0x0FFFFFF)) << 12);
+            ulong page_offs12_tmp = ((ulong)(((uint)page_offset_12) & 0x0FFF));
+            ulong physical_addr_36 = phys24_tmp | page_offs12_tmp; //23 bit physical address
+
+            return physical_addr_36;
+        }
+
+        public static Block translateCacheBlock(Block inBlock, int SourceTagWidth, int SourceSetIdxWidth, int TargetTagWidth, int TargetSetIdxWidth)
+        {
+
+            Tuple<uint, ushort> Phys36_Pair = generatePhysicalAddr36Pair(inBlock, SourceTagWidth, SourceSetIdxWidth);
+            ulong Phys36 = generatePhysAddr36(Phys36_Pair.Item1, Phys36_Pair.Item2);
+
+            ushort SetIdx = getSetIdxFromPhysAddr(Phys36, TargetSetIdxWidth);
+            byte BlockOffset = getBlockOffsetFromPhysAddr(Phys36);
+            uint Tag = getTagFromPhysAddr(Phys36,TargetTagWidth);
+
+            Block retBlock = new Block(0, SetIdx, BlockOffset, Tag);
+
+            return retBlock;
         }
 
     }

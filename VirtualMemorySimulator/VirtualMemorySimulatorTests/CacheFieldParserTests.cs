@@ -124,7 +124,7 @@ namespace VirtualMemorySimulator.Tests
         public void generateMetaEntryTest()
         {
 
-            uint entry = CacheFieldParser.generateMetaEntry(true, true, 0x0FFFFF,23);
+            uint entry = CacheFieldParser.generateMetaEntry(true, true, 0x0FFFFF, 23);
             uint expected = 0x018FFFFF;
 
             Assert.AreEqual(expected, entry);
@@ -148,6 +148,57 @@ namespace VirtualMemorySimulator.Tests
             expected = 0x0017FFFFF;
 
             Assert.AreEqual(expected, entry);
+
+        }
+
+        [TestMethod()]
+        public void translateCacheBlockTest()
+        {
+            //Cache L1 = new Cache(Constants.CACHE_TYPE.dL1Cache);
+            //Cache L2 = new Cache(Constants.CACHE_TYPE.L2Cache);
+
+            Cache L1 = new Cache(Constants.CACHE_TYPE.L2Cache);
+            VL3Cache L2 = new VL3Cache();
+
+            Random rand = new Random(1);
+
+            const int NUM_BLOCKS = 512;
+
+            //iterator vars
+            ulong phys36;
+            Block L1_Block;
+            Block L2_Block;
+            Block Result_Block;
+            uint L1_Tag;
+            uint L2_Tag;
+            ushort L1_Set;
+            ushort L2_Set;
+            byte L1_Offs;
+            byte L2_Offs;
+
+            for (int i = 0; i < NUM_BLOCKS; i++)
+            {
+
+                phys36 = (ulong)rand.Next(int.MaxValue);
+                L1_Tag = CacheFieldParser.getTagFromPhysAddr(phys36, L1.TAG_WIDTH);
+                L1_Set = CacheFieldParser.getSetIdxFromPhysAddr(phys36, L1.SET_IDX_WIDTH);
+                L1_Offs = CacheFieldParser.getBlockOffsetFromPhysAddr(phys36);
+
+                L2_Tag = CacheFieldParser.getTagFromPhysAddr(phys36, L2.TAG_WIDTH);
+                L2_Set = CacheFieldParser.getSetIdxFromPhysAddr(phys36, L2.SET_IDX_WIDTH);
+                L2_Offs = CacheFieldParser.getBlockOffsetFromPhysAddr(phys36);
+
+                L1_Block = new Block(0, L1_Set, L1_Offs, L1_Tag);
+                L2_Block = new Block(0, L2_Set, L2_Offs, L2_Tag);
+
+                Result_Block = CacheFieldParser.translateCacheBlock(L2_Block, L2.TAG_WIDTH, L2.SET_IDX_WIDTH, L1.TAG_WIDTH, L1.SET_IDX_WIDTH);
+
+                Assert.AreEqual(L1_Block.block_offset, Result_Block.block_offset);
+                Assert.AreEqual(L1_Block.set, Result_Block.set);
+                Assert.AreEqual(L1_Block.tag, Result_Block.tag);
+
+
+            }
 
         }
     }

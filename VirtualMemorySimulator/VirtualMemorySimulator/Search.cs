@@ -40,7 +40,7 @@ namespace VirtualMemorySimulator
                 {
                     //not found
                     //search L3
-                    if(vl3Cache.search()){
+                    if(false) {//vl3Cache.search()){
                         //put 64 bytes in L2cache
                         //put it in il1cache
                         //copy to instruction register
@@ -82,7 +82,7 @@ namespace VirtualMemorySimulator
                 {
                     //not found
                     //search L3
-                    if(vl3Cache.search()){
+                    if(false) {//vl3Cache.search()){
                         //put 64 bytes in L2cache
                         //put it in il1cache
                         //copy to instruction register
