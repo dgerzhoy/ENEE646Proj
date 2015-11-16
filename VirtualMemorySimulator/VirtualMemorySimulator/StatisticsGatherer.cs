@@ -125,5 +125,8 @@ namespace VirtualMemorySimulator
         {
             DiskAccess++;
         }
+
+        //Add a mechanism to count the cycles from accessing the respective 
+        //caches, tlbs, etc
     }
 }

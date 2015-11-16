@@ -78,6 +78,11 @@ namespace VirtualMemorySimulator
             ulong counter = 0;
             Random64 random = new Random64();
 
+            //make sure that test and branch instructions have a destination address with 13th
+            //bit set = 0
+            //conversely when you generate operand address 
+
+
             while (counter < numberOfInstructions)
             {
                 while ((address = random.Next(0, AddressSpaceSize - 1)) % 64 != 0)

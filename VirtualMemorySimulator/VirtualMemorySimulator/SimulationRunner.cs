@@ -50,29 +50,39 @@ namespace VirtualMemorySimulator
                 instruction = ConfigInfo.instructions.Dequeue();
                 instructionAddress = AddressGenerator.GenerateVirtualAddress(ConfigInfo.VirtualAddressSpaceSize);
 
+                //dequeue twice
+                //make sure instructions addresses have 13th bit set to 0
+                // have a PC that increments by 16
+
+                //have an outer loop here
+
                 if (instruction.opcode == ConfigInfo.LOAD_INSTRUCTION)
                 {
+                    
                     //Fetch Instruction
                     //Fetch operands
+                    //for load instructions...use the locality thing for their virtual addresses
                 }
                 else if (instruction.opcode == ConfigInfo.STORE_INSTRUCTION)
                 {
-                    //Fetch operand
+                    //Fetch instructions
+                    //Fetch operands
+                    //make the block dirty (in mmu)
 
                 }
                 else if (instruction.opcode == ConfigInfo.TEST_BRANCH_INSTRUCTION)
                 {
-                    //Fetch operand
-
+                    //No fetch operand
+                    //generate new program counter
+                    //if branch taken....update PC to braddress
+                    //create tweakable random "should we take this branch?"
+                    //if branch taken and is first of two, flush second instruction
                 }
                 else if (instruction.opcode == ConfigInfo.OTHER_INSTRUCTION)
                 {
-                    //Fetch operand
+                    //Do nothing
 
                 }
-
-
-            
             }
         }
     }

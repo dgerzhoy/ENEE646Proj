@@ -36,6 +36,7 @@ namespace VirtualMemorySimulator
 
             if (rVPMiss == 1)
             {
+                //Page fault,
                 return Constants.PAGE_FAULT;
             }
             else

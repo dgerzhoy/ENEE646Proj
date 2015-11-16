@@ -10,18 +10,18 @@ namespace VirtualMemorySimulator
     {
         private static ConfigInfo instance;
 
-        public static const uint LOAD_INSTRUCTION = 0;
-        public static const uint STORE_INSTRUCTION = 1;
-        public static const uint TEST_BRANCH_INSTRUCTION = 2;
-        public static const uint OTHER_INSTRUCTION =3;
-        public static const uint ITLB_MISS = 4;
-        public static const uint DTLB_MISS = 5;
-        public static const uint TLB_MISS = 6;
-        public static const uint IL1CACHE_MISS = 7;
-        public static const uint DL1CACHE_MISS = 8;
-        public static const uint L2CACHE_MISS = 9;
-        public static const uint L3CACHE_MISS = 10;
-        public static const uint PAGE_FAULT = 11;
+        public static uint LOAD_INSTRUCTION = 0;
+        public static uint STORE_INSTRUCTION = 1;
+        public static uint TEST_BRANCH_INSTRUCTION = 2;
+        public static uint OTHER_INSTRUCTION =3;
+        public static uint ITLB_MISS = 4;
+        public static uint DTLB_MISS = 5;
+        public static uint TLB_MISS = 6;
+        public static uint IL1CACHE_MISS = 7;
+        public static uint DL1CACHE_MISS = 8;
+        public static uint L2CACHE_MISS = 9;
+        public static uint L3CACHE_MISS = 10;
+        public static uint PAGE_FAULT = 11;
 
 
         public static ulong VirtualAddressSpaceSize;
