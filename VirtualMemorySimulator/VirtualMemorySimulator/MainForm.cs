@@ -34,7 +34,9 @@ namespace VirtualMemorySimulator
                                                             UInt32.Parse(testBranchFrequencyNumericUpdDown.Text),
                                                             UInt32.Parse(otherInstructionFrequencyNumericUpDown.Text),
                                                             logFileTextBox.Text,
-                                                            UInt32.Parse(operandsNumericUpDown.Text));
+                                                            UInt32.Parse(operandsNumericUpDown.Text),
+                                                            UInt32.Parse(percentBranchTakenNumbericUpDown.Text),
+                                                            UInt64.Parse(operandLocalityNumericUpDown.Text));
             runner.Run();
         }
     }

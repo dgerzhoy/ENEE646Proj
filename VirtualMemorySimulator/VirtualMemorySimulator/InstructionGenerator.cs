@@ -10,22 +10,6 @@ namespace VirtualMemorySimulator
     public class InstructionGenerator
     {
 
-        private static InstructionGenerator instance;
-
-        private InstructionGenerator() { }
-
-        public static InstructionGenerator Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new InstructionGenerator();
-                }
-                return instance;
-            }
-        }
-
         public static Queue<Instruction> parseInstructionFile(String filename)
         {
 
@@ -102,6 +86,7 @@ namespace VirtualMemorySimulator
                 }
                 else if (value >= testBranchStart && value <= testBranchEnd)
                 {
+                    address = address & 0xFFFFFFFFFFFFEFFF;
                     FileWriter.WriteStringToFile(filename, "(2," + operandNumberForInstruction + "," + address + ")");
                 }
                 else if (value >= otherStart && value <= otherEnd)

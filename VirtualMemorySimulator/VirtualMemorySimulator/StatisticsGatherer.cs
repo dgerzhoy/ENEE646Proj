@@ -27,6 +27,7 @@ namespace VirtualMemorySimulator
         public static uint L3CacheAccesses = 0;
         public static uint MemoryAccess = 0;
         public static uint DiskAccess = 0;
+        public static ulong Cycles = 0;
 
         private StatisticsGatherer() { }
 
@@ -99,34 +100,42 @@ namespace VirtualMemorySimulator
         public static void RecordiL1CacheAccesses()
         {
             iL1CacheAccesses++;
+            RecordCycle(4);
         }
 
         public static void RecorddL1CacheAccesses()
         {
             dL1CacheAccesses++;
+            RecordCycle(4);
         }
 
         public static void RecordL2CacheAccessess()
         {
             L2CacheAccesses++;
+            RecordCycle(8);
         }
 
         public static void RecordL3CacheAccesses()
         {
             L3CacheAccesses++;
+            RecordCycle(16);
         }
 
         public static void RecordMemoryAccess()
         {
             MemoryAccess++;
+            RecordCycle(100);
         }
 
         public static void RecordDiskAccess()
         {
             DiskAccess++;
+            RecordCycle(100000);
         }
 
-        //Add a mechanism to count the cycles from accessing the respective 
-        //caches, tlbs, etc
+        public static void RecordCycle(ulong cycles)
+        {
+            Cycles += cycles;
+        }
     }
 }

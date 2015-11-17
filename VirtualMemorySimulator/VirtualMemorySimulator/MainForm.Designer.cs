@@ -47,6 +47,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pathToInstructionsFileTextBox = new System.Windows.Forms.TextBox();
             this.startSimulationButton = new System.Windows.Forms.Button();
+            this.percentBranchTakenNumbericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.operandLocalityNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.operandsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherInstructionFrequencyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testBranchFrequencyNumericUpdDown)).BeginInit();
@@ -54,6 +58,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.loadFrequencyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VirtualAddressSpaceSizeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfInstructionsNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.percentBranchTakenNumbericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operandLocalityNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // operandsNumericUpDown
@@ -67,7 +73,11 @@
             this.operandsNumericUpDown.Name = "operandsNumericUpDown";
             this.operandsNumericUpDown.Size = new System.Drawing.Size(164, 20);
             this.operandsNumericUpDown.TabIndex = 37;
-         
+            this.operandsNumericUpDown.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // label9
             // 
@@ -77,25 +87,23 @@
             this.label9.Size = new System.Drawing.Size(131, 13);
             this.label9.TabIndex = 36;
             this.label9.Text = "Max Number of Operands:";
-            
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 280);
+            this.label8.Location = new System.Drawing.Point(12, 321);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 13);
             this.label8.TabIndex = 35;
             this.label8.Text = "Log File Path";
-            
             // 
             // logFileTextBox
             // 
-            this.logFileTextBox.Location = new System.Drawing.Point(98, 277);
+            this.logFileTextBox.Location = new System.Drawing.Point(98, 318);
             this.logFileTextBox.Name = "logFileTextBox";
             this.logFileTextBox.Size = new System.Drawing.Size(367, 20);
             this.logFileTextBox.TabIndex = 34;
-            
+            this.logFileTextBox.Text = "C:\\Log.txt";
             // 
             // otherInstructionFrequencyNumericUpDown
             // 
@@ -103,7 +111,11 @@
             this.otherInstructionFrequencyNumericUpDown.Name = "otherInstructionFrequencyNumericUpDown";
             this.otherInstructionFrequencyNumericUpDown.Size = new System.Drawing.Size(164, 20);
             this.otherInstructionFrequencyNumericUpDown.TabIndex = 33;
-            
+            this.otherInstructionFrequencyNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // label7
             // 
@@ -113,7 +125,6 @@
             this.label7.Size = new System.Drawing.Size(141, 13);
             this.label7.TabIndex = 32;
             this.label7.Text = "Other Instruction Frequency:";
-            
             // 
             // testBranchFrequencyNumericUpdDown
             // 
@@ -121,7 +132,11 @@
             this.testBranchFrequencyNumericUpdDown.Name = "testBranchFrequencyNumericUpdDown";
             this.testBranchFrequencyNumericUpdDown.Size = new System.Drawing.Size(164, 20);
             this.testBranchFrequencyNumericUpdDown.TabIndex = 31;
-            
+            this.testBranchFrequencyNumericUpdDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // label6
             // 
@@ -131,7 +146,6 @@
             this.label6.Size = new System.Drawing.Size(175, 13);
             this.label6.TabIndex = 30;
             this.label6.Text = "Test/Branch Instruction Frequency:";
-            
             // 
             // storeInstructionFrequencyNumericUpDown
             // 
@@ -139,7 +153,11 @@
             this.storeInstructionFrequencyNumericUpDown.Name = "storeInstructionFrequencyNumericUpDown";
             this.storeInstructionFrequencyNumericUpDown.Size = new System.Drawing.Size(164, 20);
             this.storeInstructionFrequencyNumericUpDown.TabIndex = 29;
-            
+            this.storeInstructionFrequencyNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // label5
             // 
@@ -149,7 +167,6 @@
             this.label5.Size = new System.Drawing.Size(140, 13);
             this.label5.TabIndex = 28;
             this.label5.Text = "Store Instruction Frequency:";
-            
             // 
             // loadFrequencyNumericUpDown
             // 
@@ -157,7 +174,11 @@
             this.loadFrequencyNumericUpDown.Name = "loadFrequencyNumericUpDown";
             this.loadFrequencyNumericUpDown.Size = new System.Drawing.Size(164, 20);
             this.loadFrequencyNumericUpDown.TabIndex = 27;
-            
+            this.loadFrequencyNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // label4
             // 
@@ -167,7 +188,6 @@
             this.label4.Size = new System.Drawing.Size(139, 13);
             this.label4.TabIndex = 26;
             this.label4.Text = "Load Instruction Frequency:";
-            
             // 
             // VirtualAddressSpaceSizeUpDown
             // 
@@ -186,7 +206,7 @@
             this.VirtualAddressSpaceSizeUpDown.Size = new System.Drawing.Size(164, 20);
             this.VirtualAddressSpaceSizeUpDown.TabIndex = 25;
             this.VirtualAddressSpaceSizeUpDown.Value = new decimal(new int[] {
-            8,
+            24,
             0,
             0,
             0});
@@ -217,7 +237,7 @@
             this.numberOfInstructionsNumericUpDown.Size = new System.Drawing.Size(164, 20);
             this.numberOfInstructionsNumericUpDown.TabIndex = 23;
             this.numberOfInstructionsNumericUpDown.Value = new decimal(new int[] {
-            1,
+            1000,
             0,
             0,
             0});
@@ -234,7 +254,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 254);
+            this.label1.Location = new System.Drawing.Point(12, 295);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 21;
@@ -242,14 +262,14 @@
             // 
             // pathToInstructionsFileTextBox
             // 
-            this.pathToInstructionsFileTextBox.Location = new System.Drawing.Point(98, 251);
+            this.pathToInstructionsFileTextBox.Location = new System.Drawing.Point(98, 292);
             this.pathToInstructionsFileTextBox.Name = "pathToInstructionsFileTextBox";
             this.pathToInstructionsFileTextBox.Size = new System.Drawing.Size(367, 20);
             this.pathToInstructionsFileTextBox.TabIndex = 20;
             // 
             // startSimulationButton
             // 
-            this.startSimulationButton.Location = new System.Drawing.Point(475, 249);
+            this.startSimulationButton.Location = new System.Drawing.Point(475, 290);
             this.startSimulationButton.Name = "startSimulationButton";
             this.startSimulationButton.Size = new System.Drawing.Size(128, 23);
             this.startSimulationButton.TabIndex = 19;
@@ -257,11 +277,62 @@
             this.startSimulationButton.UseVisualStyleBackColor = true;
             this.startSimulationButton.Click += new System.EventHandler(this.startSimulationButton_Click_1);
             // 
+            // percentBranchTakenNumbericUpDown
+            // 
+            this.percentBranchTakenNumbericUpDown.Location = new System.Drawing.Point(205, 203);
+            this.percentBranchTakenNumbericUpDown.Name = "percentBranchTakenNumbericUpDown";
+            this.percentBranchTakenNumbericUpDown.Size = new System.Drawing.Size(164, 20);
+            this.percentBranchTakenNumbericUpDown.TabIndex = 39;
+            this.percentBranchTakenNumbericUpDown.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 208);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(136, 13);
+            this.label10.TabIndex = 38;
+            this.label10.Text = "Branch Taken Percentage:";
+            // 
+            // operandLocalityNumericUpDown
+            // 
+            this.operandLocalityNumericUpDown.Location = new System.Drawing.Point(204, 227);
+            this.operandLocalityNumericUpDown.Maximum = new decimal(new int[] {
+            -1530494976,
+            232830,
+            0,
+            0});
+            this.operandLocalityNumericUpDown.Name = "operandLocalityNumericUpDown";
+            this.operandLocalityNumericUpDown.Size = new System.Drawing.Size(164, 20);
+            this.operandLocalityNumericUpDown.TabIndex = 41;
+            this.operandLocalityNumericUpDown.Value = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            0});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 232);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 13);
+            this.label11.TabIndex = 40;
+            this.label11.Text = "Locality:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 527);
+            this.Controls.Add(this.operandLocalityNumericUpDown);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.percentBranchTakenNumbericUpDown);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.operandsNumericUpDown);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -290,6 +361,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.loadFrequencyNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VirtualAddressSpaceSizeUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfInstructionsNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.percentBranchTakenNumbericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operandLocalityNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,6 +389,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox pathToInstructionsFileTextBox;
         private System.Windows.Forms.Button startSimulationButton;
+        private System.Windows.Forms.NumericUpDown percentBranchTakenNumbericUpDown;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown operandLocalityNumericUpDown;
+        private System.Windows.Forms.Label label11;
 
     }
 }

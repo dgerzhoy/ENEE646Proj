@@ -31,6 +31,8 @@ namespace VirtualMemorySimulator
         public static uint TestBranchFrequency;
         public static uint OtherInstructionFrequency;
         public static uint NumberOfOperands;
+        public static uint PercentBranchTaken;
+        public static ulong DistanceFromInstruction;
         public static String InstructionFilePath;
         public static String LogFilePath;
         public static Queue<Instruction> instructions;

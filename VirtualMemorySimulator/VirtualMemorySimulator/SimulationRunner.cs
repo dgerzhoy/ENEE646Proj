@@ -10,7 +10,13 @@ namespace VirtualMemorySimulator
     {
         private MemoryManagementUnit mmu;
 
-        public SimulationRunner(String filePath, ulong addressSpaceSize, ulong numInstructions, uint loadInstructionFrequency, uint storeInstructionFrequency, uint testBranchFrequency, uint otherInstructionFrequency, String logFilePath, uint numberOfOperands)
+        public SimulationRunner(String filePath, ulong addressSpaceSize, ulong numInstructions, uint loadInstructionFrequency, uint storeInstructionFrequency,
+            uint testBranchFrequency,
+            uint otherInstructionFrequency,
+            String logFilePath,
+            uint numberOfOperands,
+            uint percentBranchTaken,
+            ulong distanceFromInstruction)
         {
 
             ConfigInfo.VirtualAddressSpaceSize = addressSpaceSize;
@@ -22,6 +28,8 @@ namespace VirtualMemorySimulator
             ConfigInfo.LogFilePath = logFilePath;
             ConfigInfo.NumberOfOperands = numberOfOperands;
             ConfigInfo.InstructionFilePath = filePath;
+            ConfigInfo.PercentBranchTaken = percentBranchTaken;
+            ConfigInfo.DistanceFromInstruction = distanceFromInstruction;
             mmu = new MemoryManagementUnit();
         }
 
@@ -41,47 +49,98 @@ namespace VirtualMemorySimulator
             ConfigInfo.instructions = InstructionGenerator.parseInstructionFile(ConfigInfo.InstructionFilePath);
 
             Instruction instruction;
+            Queue<ulong> operandAddresses;
+            ulong operandAddress;
+            Random random = new Random();
             ulong instructionAddress;
             uint penalty;
             uint result;
+            ulong PC=0;
+            bool branchTaken=false;
 
             while (ConfigInfo.instructions.Count > 0)
             {
-                instruction = ConfigInfo.instructions.Dequeue();
-                instructionAddress = AddressGenerator.GenerateVirtualAddress(ConfigInfo.VirtualAddressSpaceSize);
 
-                //dequeue twice
-                //make sure instructions addresses have 13th bit set to 0
-                // have a PC that increments by 16
+                branchTaken=false;
 
-                //have an outer loop here
+                operandAddress = AddressGenerator.GenerateVirtualAddress(ConfigInfo.VirtualAddressSpaceSize) | 0x1000;
 
-                if (instruction.opcode == ConfigInfo.LOAD_INSTRUCTION)
+                for (int i = 0; i < 2 && ConfigInfo.instructions.Count > 0; i++)
                 {
-                    
-                    //Fetch Instruction
-                    //Fetch operands
-                    //for load instructions...use the locality thing for their virtual addresses
+                    instruction = ConfigInfo.instructions.Dequeue();
+
+                    if (instruction.opcode == ConfigInfo.LOAD_INSTRUCTION)
+                    {
+                        mmu.InstructionFetch(PC);
+
+                        operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
+                            ConfigInfo.VirtualAddressSpaceSize,
+                            ConfigInfo.DistanceFromInstruction,
+                            instruction.numOperands);
+
+                        while (operandAddresses.Count > 0)
+                        {
+                            mmu.OperandFetch(operandAddresses.Dequeue());
+
+                            if(operandAddresses.Count > 0 )
+                                mmu.OperandFetch(operandAddresses.Dequeue());
+
+                            if (operandAddresses.Count > 0)
+                                mmu.OperandFetch(operandAddresses.Dequeue());
+                        }
+                    }
+                    else if (instruction.opcode == ConfigInfo.STORE_INSTRUCTION)
+                    {
+                        mmu.InstructionFetch(PC);
+
+                        operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
+                        ConfigInfo.VirtualAddressSpaceSize,
+                        ConfigInfo.DistanceFromInstruction,
+                        instruction.numOperands);
+
+                        while (operandAddresses.Count > 0)
+                        {
+                            mmu.OperandFetch(operandAddresses.Dequeue());
+                        }
+                        
+                        //Fetch instructions
+                        //Fetch operands
+                        //make the block dirty (in mmu)
+
+                    }
+                    else if (instruction.opcode == ConfigInfo.TEST_BRANCH_INSTRUCTION)
+                    {
+
+                        if (random.Next(0, 100) <= ConfigInfo.PercentBranchTaken)
+                        {
+                            //branch taken
+                            PC = instruction.branchAddress;
+                            branchTaken = true;
+                            break;
+                        }
+                        //No fetch operand
+                        //generate new program counter
+                        //if branch taken....update PC to braddress
+                        //create tweakable random "should we take this branch?"
+                        //if branch taken and is first of two, flush second instruction
+                    }
+                    else if (instruction.opcode == ConfigInfo.OTHER_INSTRUCTION)
+                    {
+                        //Do nothing
+
+                    }
                 }
-                else if (instruction.opcode == ConfigInfo.STORE_INSTRUCTION)
-                {
-                    //Fetch instructions
-                    //Fetch operands
-                    //make the block dirty (in mmu)
 
-                }
-                else if (instruction.opcode == ConfigInfo.TEST_BRANCH_INSTRUCTION)
+                if (branchTaken == true)
                 {
-                    //No fetch operand
-                    //generate new program counter
-                    //if branch taken....update PC to braddress
-                    //create tweakable random "should we take this branch?"
-                    //if branch taken and is first of two, flush second instruction
+                    continue;
                 }
-                else if (instruction.opcode == ConfigInfo.OTHER_INSTRUCTION)
-                {
-                    //Do nothing
+                  
 
+                PC += 16;
+                if (((PC & 0x1000) >> 12) == 0x1)
+                {
+                    PC += 0x1000;
                 }
             }
         }

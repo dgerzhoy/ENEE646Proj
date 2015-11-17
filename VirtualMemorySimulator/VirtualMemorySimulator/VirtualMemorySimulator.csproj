@@ -53,6 +53,7 @@
     <Compile Include="ConfigInfo.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="InstructionGenerator.cs" />
+    <Compile Include="LocalityGenerator.cs" />
     <Compile Include="LogTrace.cs" />
     <Compile Include="MemoryManagementUnit.cs" />
     <Compile Include="Search.cs" />
