@@ -105,8 +105,12 @@ namespace VirtualMemorySimulator
             return physical_addr_36;
         }
 
-        public static Block translateCacheBlock(Block inBlock, int SourceTagWidth, int SourceSetIdxWidth, int TargetTagWidth, int TargetSetIdxWidth)
+        public static Block translateCacheBlock(Block inBlock, Cache Source, Cache Target)
         {
+            int SourceTagWidth = Source.TAG_WIDTH;
+            int SourceSetIdxWidth = Source.SET_IDX_WIDTH;
+            int TargetTagWidth = Target.TAG_WIDTH;
+            int TargetSetIdxWidth = Target.SET_IDX_WIDTH;
 
             Tuple<uint, ushort> Phys36_Pair = generatePhysicalAddr36Pair(inBlock, SourceTagWidth, SourceSetIdxWidth);
             ulong Phys36 = generatePhysAddr36(Phys36_Pair.Item1, Phys36_Pair.Item2);
@@ -114,6 +118,25 @@ namespace VirtualMemorySimulator
             ushort SetIdx = getSetIdxFromPhysAddr(Phys36, TargetSetIdxWidth);
             byte BlockOffset = getBlockOffsetFromPhysAddr(Phys36);
             uint Tag = getTagFromPhysAddr(Phys36,TargetTagWidth);
+
+            Block retBlock = new Block(0, SetIdx, BlockOffset, Tag);
+
+            return retBlock;
+        }
+
+        public static Block translateCacheBlock(Block inBlock, VL3Cache Source, Cache Target)
+        {
+            int SourceTagWidth = Source.TAG_WIDTH;
+            int SourceSetIdxWidth = Source.SET_IDX_WIDTH;
+            int TargetTagWidth = Target.TAG_WIDTH;
+            int TargetSetIdxWidth = Target.SET_IDX_WIDTH;
+
+            Tuple<uint, ushort> Phys36_Pair = generatePhysicalAddr36Pair(inBlock, SourceTagWidth, SourceSetIdxWidth);
+            ulong Phys36 = generatePhysAddr36(Phys36_Pair.Item1, Phys36_Pair.Item2);
+
+            ushort SetIdx = getSetIdxFromPhysAddr(Phys36, TargetSetIdxWidth);
+            byte BlockOffset = getBlockOffsetFromPhysAddr(Phys36);
+            uint Tag = getTagFromPhysAddr(Phys36, TargetTagWidth);
 
             Block retBlock = new Block(0, SetIdx, BlockOffset, Tag);
 

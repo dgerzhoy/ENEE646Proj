@@ -48,7 +48,7 @@ namespace VirtualMemorySimulator
                     generatedVirtualAndPhysicalAddressPair = AddressGenerator.GeneratorSixtyBitVirtualPhysicalPair();
                     result = vpt.search(generatedVirtualAndPhysicalAddressPair);
 
-                    if (result == Constants.PAGE_FAULT)
+                    if (false)//result == Constants.PAGE_FAULT)
                     {
                         //signal page fault
                         //copy page from disk
