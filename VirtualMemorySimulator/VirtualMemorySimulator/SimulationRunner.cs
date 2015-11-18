@@ -81,7 +81,7 @@ namespace VirtualMemorySimulator
                         while (operandAddresses.Count > 0)
                         {
                              mmu.OperandFetch(operandAddresses.Dequeue());
-                            operandAddresses.Dequeue();
+                            //operandAddresses.Dequeue();
                             if (operandAddresses.Count > 0)
                                 mmu.OperandFetch(operandAddresses.Dequeue());
                                 //operandAddresses.Dequeue();

@@ -1,0 +1,8 @@
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Release\VirtualMemorySimulatorTests.dll
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Release\VirtualMemorySimulatorTests.pdb
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Release\VirtualMemorySimulator.exe
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\bin\Release\VirtualMemorySimulator.pdb
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\obj\Release\VirtualMemorySimulatorTests.csprojResolveAssemblyReference.cache
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\obj\Release\VirtualMemorySimulatorTests.dll
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulatorTests\obj\Release\VirtualMemorySimulatorTests.pdb
