@@ -18,7 +18,13 @@ namespace VirtualMemorySimulator.Tests
 
             MemoryManagementUnit MMU = new MemoryManagementUnit();
 
-            MMU.InstructionFetch(0);
+            for(ulong i = 0; i < ((ulong)1<<48); i++)
+            {
+                MMU.InstructionFetch(i);
+                MMU.OperandFetch(i);
+                MMU.OperandStore(i);
+            }
+            
 
 
         }

@@ -100,7 +100,7 @@ namespace VirtualMemorySimulator
             int Evicted_Bank = LRU.Get_LRU(set);
             uint Evicted_Tag;
 
-            if (CacheFieldParser.getDirtyBitFromEntry(meta[Evicted_Bank][set],TAG_WIDTH))
+            if (CacheFieldParser.getDirtyBitFromEntry(meta[Evicted_Bank][set],TAG_WIDTH) && CacheFieldParser.getValidBitFromEntry(meta[Evicted_Bank][set], TAG_WIDTH))
             {
                 Evicted_Tag = CacheFieldParser.getTagFromEntry(meta[Evicted_Bank][set],TAG_WIDTH);
 
@@ -188,6 +188,20 @@ namespace VirtualMemorySimulator
 
             return null;
 
+        }
+
+        //Gets the LRU Block
+        public Block getLRU(ushort index)
+        {
+            int bank = LRU.Get_LRU(index);
+            uint meta_entry;
+            uint block_tag;
+
+            meta_entry = meta[bank][index];
+
+            block_tag = CacheFieldParser.getTagFromEntry(meta_entry, TAG_WIDTH);
+         
+            return new Block(bank, index, 0, block_tag);
         }
 
     }

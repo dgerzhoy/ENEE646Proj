@@ -32,7 +32,7 @@ namespace VirtualMemorySimulator
 
         public uint search(ulong VirtualAddr36)
         {
-            Random random = new Random();
+            Random random = new Random(1);
             int rVPMiss = random.Next(1);
 
             //Memory Access

@@ -63,7 +63,7 @@ namespace VirtualMemorySimulator
         {
             ulong VAddr36 = VirtualAddress >> 12;
             ulong PTE;
-            ulong valid = (1 << 55);
+            ulong valid = ((ulong)1 << 55);
             VAddr36 &= 0x07FFFFFFF;//31 bit tag
 
             PTE = valid | VAddr36 << 24 | ((ulong)Phys24 & 0x0FFFFFF);

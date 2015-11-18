@@ -35,7 +35,7 @@ namespace VirtualMemorySimulator
 
         public Block search(uint PhysicalAddr24, ushort PageOffset)
         {
-            Random random = new Random();
+            Random random = new Random(1);
             int rVL3CacheMiss = random.Next(1);
             int rMainMemoryMiss;
             ulong PhysicalAddr36 = CacheFieldParser.generatePhysAddr36(PhysicalAddr24, PageOffset);
