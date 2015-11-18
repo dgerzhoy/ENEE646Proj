@@ -59,6 +59,11 @@ namespace VirtualMemorySimulator
             return virtualAddress >> 43 & 0x1F;
         }
 
+        public static ulong getdPageIndexFromVirtualAddress(ulong virtualAddress)
+        {
+            return virtualAddress >> 43 & 0x0F;
+        }
+
         public static ulong generatePTE(ulong VirtualAddress, uint Phys24)
         {
             ulong VAddr36 = VirtualAddress >> 12;

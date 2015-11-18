@@ -174,7 +174,7 @@ namespace VirtualMemorySimulator
             Tuple<uint, ushort> DirtyAddress;
 
             //Virtual to Physical Translation
-            PhysicalAddr24 = iTLB_Translation(VirtualAddress);
+            PhysicalAddr24 = dTLB_Translation(VirtualAddress);
             PhysicalAddr36 = CacheFieldParser.generatePhysAddr36(PhysicalAddr24, PageOffset);
 
             //L1 Search
@@ -259,7 +259,7 @@ namespace VirtualMemorySimulator
             Tuple<uint, ushort> DirtyAddress;
 
             //Virtual to Physical Translation
-            PhysicalAddr24 = iTLB_Translation(VirtualAddress);
+            PhysicalAddr24 = dTLB_Translation(VirtualAddress);
             PhysicalAddr36 = CacheFieldParser.generatePhysAddr36(PhysicalAddr24, PageOffset);
 
             //L1 Search
