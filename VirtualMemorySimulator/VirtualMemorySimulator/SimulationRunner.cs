@@ -71,7 +71,7 @@ namespace VirtualMemorySimulator
 
                     if (instruction.opcode == ConfigInfo.LOAD_INSTRUCTION)
                     {
-                       // mmu.InstructionFetch(PC);
+                       mmu.InstructionFetch(PC);
 
                         operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
                             ConfigInfo.VirtualAddressSpaceSize,
@@ -80,15 +80,15 @@ namespace VirtualMemorySimulator
 
                         while (operandAddresses.Count > 0)
                         {
-                          //  mmu.OperandFetch(operandAddresses.Dequeue());
+                             mmu.OperandFetch(operandAddresses.Dequeue());
                             operandAddresses.Dequeue();
                             if (operandAddresses.Count > 0)
-                                // mmu.OperandFetch(operandAddresses.Dequeue());
-                                operandAddresses.Dequeue();
+                                mmu.OperandFetch(operandAddresses.Dequeue());
+                                //operandAddresses.Dequeue();
 
                             if (operandAddresses.Count > 0)
-                                //mmu.OperandFetch(operandAddresses.Dequeue());
-                                operandAddresses.Dequeue();
+                                mmu.OperandFetch(operandAddresses.Dequeue());
+                                //operandAddresses.Dequeue();
                         }
                     }
                     else if (instruction.opcode == ConfigInfo.STORE_INSTRUCTION)
@@ -102,8 +102,8 @@ namespace VirtualMemorySimulator
 
                         while (operandAddresses.Count > 0)
                         {
-                           // mmu.OperandFetch(operandAddresses.Dequeue());
-                            operandAddresses.Dequeue();
+                            mmu.OperandFetch(operandAddresses.Dequeue());
+                           // operandAddresses.Dequeue();
                         }
                         
                         //Fetch instructions
