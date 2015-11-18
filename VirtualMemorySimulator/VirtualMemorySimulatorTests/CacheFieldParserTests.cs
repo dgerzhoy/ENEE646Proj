@@ -191,7 +191,7 @@ namespace VirtualMemorySimulator.Tests
                 L1_Block = new Block(0, L1_Set, L1_Offs, L1_Tag);
                 L2_Block = new Block(0, L2_Set, L2_Offs, L2_Tag);
 
-                Result_Block = CacheFieldParser.translateCacheBlock(L2_Block, L2.TAG_WIDTH, L2.SET_IDX_WIDTH, L1.TAG_WIDTH, L1.SET_IDX_WIDTH);
+                Result_Block = CacheFieldParser.translateCacheBlock(L2_Block, L2, L1);
 
                 Assert.AreEqual(L1_Block.block_offset, Result_Block.block_offset);
                 Assert.AreEqual(L1_Block.set, Result_Block.set);

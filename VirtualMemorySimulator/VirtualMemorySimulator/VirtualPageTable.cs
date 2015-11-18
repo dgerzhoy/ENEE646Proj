@@ -9,17 +9,17 @@ namespace VirtualMemorySimulator
     public class VirtualPageTable
     {
         private const int ENTRIES = 1024;
-        private const int BANKS = 4;
         //private ulong[] entries;
-        private List<ulong> entries;
+        //private List<Tuple<ulong,ushort>> entries;
+        private Dictionary<ulong, uint > entries;
 
         public VirtualPageTable()
         {
             //entries = new ulong[ENTRIES];
-            entries = new List<ulong>();
+            entries = new Dictionary<ulong, uint>();
         }
 
-        public ulong getEntry(int bank, int entry)
+        /*public ulong getEntry(int bank, int entry)
         {
             return entries[entry];
         }
@@ -28,22 +28,33 @@ namespace VirtualMemorySimulator
         {
             entries[entry] = value;
         }
+        */
 
-        public ulong search(ulong virtualAndPhysicalAddressPair)
+        public uint search(ulong VirtualAddr36)
         {
             Random random = new Random();
             int rVPMiss = random.Next(1);
 
-            if (rVPMiss == 1)
+            //Memory Access
+            StatisticsGatherer.RecordMemoryAccess();
+
+            if (entries.ContainsKey(VirtualAddr36))
             {
-                //Page fault,
-                return Constants.PAGE_FAULT;
-            }
-            else
-            {
-                return Constants.FOUND;
+                return entries[VirtualAddr36];
             }
 
+            entries.Add(VirtualAddr36, (uint)random.Next(((1 << 24) - 1)));
+
+            if (rVPMiss == 1)
+            {
+
+                //Page fault
+                StatisticsGatherer.RecordPageFaults();
+
+            }
+
+            
+            return entries[VirtualAddr36];
         }
 
     }

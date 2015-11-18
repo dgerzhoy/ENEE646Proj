@@ -11,6 +11,7 @@ namespace VirtualMemorySimulator
         public const ulong NOT_FOUND = 0xFFFFFFFFFFFFFFFF;
         public const ulong FOUND = 0xFFFFFFFFFFFFFFFE;
         public const ulong PAGE_FAULT = 0xFFFFFFFFFFFFFFFD;
+        public const uint PAGE_FAULT_32 = 0xFFFFFFFD;
         public const ulong VALID = 0x1;
 
         public enum CACHE_TYPE

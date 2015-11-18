@@ -26,9 +26,9 @@ namespace VirtualMemorySimulator
             }
         }
 
-        public static ulong getPhyicalAddressFromPageTableEntry(ulong pageTableEntry)
+        public static uint getPhyicalAddressFromPageTableEntry(ulong pageTableEntry)
         {
-            return pageTableEntry & 0xFFFFFF;
+            return (uint)pageTableEntry & 0x0FFFFFF;
         }
 
         public static ulong getPageAddressTagFromPageTableEntry(ulong pageTableEntry)
@@ -61,12 +61,18 @@ namespace VirtualMemorySimulator
             return virtualAddress >> 41 & 0x1F;
         }
 
-        public static ulong generatePTE(ulong VirtualAddress)
+        public static ulong generatePTE(ulong VirtualAddress, uint Phys24)
         {
+            ulong VAddr36 = VirtualAddress >> 12;
+            ulong PTE;
+            ulong valid = (1 << 55);
+            VAddr36 &= 0x01FFFFFFF;//29 bit tag
 
+            PTE = valid | VAddr36 << 24 | ((ulong)Phys24 & 0x0FFFFFF);
 
-            return 0;
+            return PTE;
         }
+
 
     }
 }

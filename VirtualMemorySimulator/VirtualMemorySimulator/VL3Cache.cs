@@ -49,6 +49,7 @@ namespace VirtualMemorySimulator
 
             if (entries.Contains(retblock))
             {
+                //hit
                 return retblock;
             }
 

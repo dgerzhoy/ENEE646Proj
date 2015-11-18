@@ -19,9 +19,8 @@ namespace VirtualMemorySimulator
 
         //VL3 Cache
         public VL3Cache vL3Cache = new VL3Cache();
-        //Physical Memory
-            //Page Table
-        //Disk
+
+        public VirtualPageTable vPT = new VirtualPageTable();
 
         public MemoryManagementUnit()
         {
@@ -32,9 +31,11 @@ namespace VirtualMemorySimulator
         {
 
             ulong resultTLB = Constants.NOT_FOUND;
+            uint resultvPT;
             Block resultCache = null;
             Block transferBlock = null;
-            Block DirtyBlock = null;
+            Block DirtyBlock_L1 = null;
+            Block DirtyBlock_L2 = null;
             uint PhysicalAddr24 = 0;
             ushort PageOffset = (ushort)(VirtualAddress & 0x0FFF);
             ulong PhysicalAddr36 = 0;
@@ -42,13 +43,29 @@ namespace VirtualMemorySimulator
 
             resultTLB = iL1_TLB.searchBanks(VirtualAddress);
 
-            if(resultTLB == Constants.NOT_FOUND)
+            if(resultTLB == Constants.NOT_FOUND) //L1TLB Miss
             {
                 resultTLB = L2_TLB.searchBanks(VirtualAddress);
+                if(resultTLB == Constants.NOT_FOUND) //L2 TLB Miss
+                {
+                    //Search Virtual Page Table. This will hit (but simulate pagefaulting)
+                    resultvPT = vPT.search(VirtualAddress);
+
+                    resultTLB = TLBEntryParser.generatePTE(VirtualAddress, resultvPT);
+
+                    L2_TLB.setEntry_LRU(VirtualAddress, resultTLB);
+                    resultTLB = L2_TLB.searchBanks(VirtualAddress);
+                    if (resultTLB == Constants.NOT_FOUND)
+                    {
+                        throw new Exception("L2 TLB entry Still not found after service");
+                    }
+                }
+                resultTLB = id_TLBParser.generatePTE(VirtualAddress, TLBEntryParser.getPhyicalAddressFromPageTableEntry(resultTLB));
+                iL1_TLB.setEntry_LRU(VirtualAddress, resultTLB);
+                resultTLB = iL1_TLB.searchBanks(VirtualAddress);
                 if(resultTLB == Constants.NOT_FOUND)
                 {
-                    //ifnull Search PT
-                        //ifnull pagefault
+                    throw new Exception("L1 TLB entry Still not found after service");
                 }
             }
 
@@ -57,59 +74,82 @@ namespace VirtualMemorySimulator
 
             PhysicalAddr36 = CacheFieldParser.generatePhysAddr36(PhysicalAddr24, PageOffset);
 
+            //L1 Search
             resultCache = iL1Cache.search(PhysicalAddr24, PageOffset);
 
-            if (resultCache == null)
+            if (resultCache == null) //L1 Miss
             {
+                //L2 Search
                 resultCache = L2Cache.search(PhysicalAddr24, PageOffset);
 
-                if (resultCache == null)
+                if (resultCache == null) //L2 Miss
                 {
-                    //search L3
-                    //vL3Cache.search(CacheFieldParser.getTagFromPhysAddr(PhysicalAddr24, PageOffset));
-                    //ifnull search main mem
-                    //ifnull pagefault
-                }
-                else
-                {
-                    //Replace block in into iL1 and Writeback evicted block if dirty
-                    transferBlock = CacheFieldParser.translateCacheBlock(resultCache, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH, iL1Cache.TAG_WIDTH, iL1Cache.SET_IDX_WIDTH);
-                    DirtyBlock = iL1Cache.ReplaceBlock(transferBlock);
 
-                    if (DirtyBlock != null)
+                    //search L3 (and Mem/Disk)
+                    //Might need to indicate TLB pagefault here.
+                    resultCache = vL3Cache.search(PhysicalAddr24, PageOffset);
+
+                    //Replace in L2
+                    transferBlock = CacheFieldParser.translateCacheBlock(resultCache, vL3Cache, L2Cache);
+                    DirtyBlock_L2 = L2Cache.ReplaceBlock(transferBlock);
+
+                    if (DirtyBlock_L2 != null) //Evicted Block From L2 is dirty
                     {
-                        transferBlock = CacheFieldParser.translateCacheBlock(DirtyBlock, iL1Cache.TAG_WIDTH, iL1Cache.SET_IDX_WIDTH, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
+                        DirtyAddress = CacheFieldParser.generatePhysicalAddr36Pair(DirtyBlock_L2, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
 
-                        DirtyAddress = CacheFieldParser.generatePhysicalAddr36Pair(DirtyBlock, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
+                        //Search L3 to simulate an update to L3, will be a hit
+                        vL3Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
 
-                        DirtyBlock = L2Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
+                    }
 
-                        if (DirtyBlock == null)
+                }
+                
+                //Replace block in into iL1 and Writeback evicted block if dirty
+                transferBlock = CacheFieldParser.translateCacheBlock(resultCache, L2Cache, iL1Cache);
+                DirtyBlock_L1 = iL1Cache.ReplaceBlock(transferBlock);
+
+                if (DirtyBlock_L1 != null) //Evicted block from L1 is dirty
+                {
+                    transferBlock = CacheFieldParser.translateCacheBlock(DirtyBlock_L1, iL1Cache, L2Cache);
+                    DirtyAddress = CacheFieldParser.generatePhysicalAddr36Pair(transferBlock, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
+
+                    DirtyBlock_L1 = L2Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
+
+                    if (DirtyBlock_L1 == null) //Dirty Block Missing From L2
+                    {
+                        //Find it in L3 and replace in L2
+                        DirtyBlock_L1 = vL3Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
+                        DirtyBlock_L2 = L2Cache.ReplaceBlock(DirtyBlock_L1);
+
+                        //Search L2 Again
+                        DirtyBlock_L1 = L2Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
+                        if (DirtyBlock_L1 == null)
                         {
-                            //Find it in L3 and replace in L2
-
-                            //Search again
-                            DirtyBlock = L2Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
-                            if (DirtyBlock == null)
-                            {
-                                throw new Exception("L2 Cache is still missing dirty block after miss-service");
-                            }
+                            throw new Exception("L2 Cache is still missing dirty block after miss-service");
                         }
 
-                        L2Cache.UpdateBlock(DirtyBlock);
+                        if (DirtyBlock_L2 != null) //Evicted Block From L2 is dirty
+                        {
+                            DirtyAddress = CacheFieldParser.generatePhysicalAddr36Pair(DirtyBlock_L2, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
+
+                            //Search L3 to simulate an update to L3, will be a hit
+                            vL3Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
+
+                        }
 
 
                     }
 
-                    resultCache = iL1Cache.search(PhysicalAddr24, PageOffset);
-                    if (resultCache == null)
-                    {
-                        throw new Exception("L1 Cache is still missing data after miss-service");
-                    }
+                    L2Cache.UpdateBlock(DirtyBlock_L1);
+
 
                 }
 
-
+                resultCache = iL1Cache.search(PhysicalAddr24, PageOffset);
+                if (resultCache == null)
+                {
+                    throw new Exception("L1 Cache is still missing data after miss-service");
+                }
             }
         }
 
@@ -151,44 +191,6 @@ namespace VirtualMemorySimulator
                     }
                 }
             }
-        }
-
-        public void WriteBack(Block DirtyBlock, Cache StartCache)
-        {
-            Block transferBlock = null;
-            Tuple<uint, ushort> DirtyAddress;
-
-            if (DirtyBlock == null)
-            {
-                return;
-            }
-
-            transferBlock = CacheFieldParser.translateCacheBlock(DirtyBlock, iL1Cache.TAG_WIDTH, iL1Cache.SET_IDX_WIDTH, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
-
-            DirtyAddress = CacheFieldParser.generatePhysicalAddr36Pair(DirtyBlock, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
-
-            DirtyBlock = L2Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
-
-            if (DirtyBlock == null)
-            {
-                //Find it in L3 and replace in L2
-
-                //Search again
-                DirtyBlock = L2Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
-                if (DirtyBlock == null)
-                {
-                    throw new Exception("L2 Cache is still missing dirty block after miss-service");
-                }
-            }
-            else
-            {
-                //Found in L3 Replace in L2 now
-                transferBlock = CacheFieldParser.translateCacheBlock(DirtyBlock, vL3Cache.TAG_WIDTH, vL3Cache.SET_IDX_WIDTH, L2Cache.TAG_WIDTH, L2Cache.SET_IDX_WIDTH);
-                DirtyBlock = iL1Cache.ReplaceBlock(transferBlock);
-            }
-
-            L2Cache.UpdateBlock(DirtyBlock);
-
         }
 
     }
