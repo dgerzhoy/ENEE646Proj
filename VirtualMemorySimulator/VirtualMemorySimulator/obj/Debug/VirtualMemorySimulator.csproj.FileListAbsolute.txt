@@ -11,7 +11,7 @@ C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMem
 C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.pdb
 C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\bin\Debug\VirtualMemorySimulator.exe
 C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\bin\Debug\VirtualMemorySimulator.pdb
-C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.csprojResolveAssemblyReference.cache
 C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.MainForm.resources
 C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.Properties.Resources.resources
 C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.csproj.GenerateResource.Cache
+C:\Users\derzh\Documents\Git_Repos\ENEE646Proj\VirtualMemorySimulator\VirtualMemorySimulator\obj\Debug\VirtualMemorySimulator.csprojResolveAssemblyReference.cache

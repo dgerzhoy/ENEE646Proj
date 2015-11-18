@@ -47,7 +47,6 @@ namespace VirtualMemorySimulator
 
             if (rVPMiss == 1)
             {
-
                 //Page fault
                 StatisticsGatherer.RecordPageFaults();
 

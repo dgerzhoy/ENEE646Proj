@@ -81,12 +81,13 @@ namespace VirtualMemorySimulator
 
             if (resultCache == null) //L1 Miss
             {
+                StatisticsGatherer.RecordIL1CacheTLBMisses();
                 //L2 Search
                 resultCache = L2Cache.search(PhysicalAddr24, PageOffset);
 
                 if (resultCache == null) //L2 Miss
                 {
-
+                    StatisticsGatherer.RecordL2CacheMissess();
                     //search L3 (and Mem/Disk)
                     //Might need to indicate TLB pagefault here.
                     resultCache = vL3Cache.search(PhysicalAddr24, PageOffset);
@@ -106,6 +107,9 @@ namespace VirtualMemorySimulator
                         vL3Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
                     }
                     resultCache = transferBlock;
+                } else
+                {
+                    StatisticsGatherer.RecordL2CacheHits();
                 }
                 
                 //Replace block in into iL1 and Writeback evicted block if dirty
@@ -152,6 +156,9 @@ namespace VirtualMemorySimulator
 
                 //Push Block to Front of LRU
                 iL1Cache.ReadBlock(resultCache);
+            } else
+            {
+                StatisticsGatherer.RecordIL1CacheTLBHits();
             }
         }
 
@@ -175,12 +182,13 @@ namespace VirtualMemorySimulator
 
             if (resultCache == null) //L1 Miss
             {
+                StatisticsGatherer.RecordDL1CacheTLBMisses();
                 //L2 Search
                 resultCache = L2Cache.search(PhysicalAddr24, PageOffset);
 
                 if (resultCache == null) //L2 Miss
                 {
-
+                    StatisticsGatherer.RecordL2CacheMissess();
                     //search L3 (and Mem/Disk)
                     //Might need to indicate TLB pagefault here.
                     resultCache = vL3Cache.search(PhysicalAddr24, PageOffset);
@@ -200,6 +208,9 @@ namespace VirtualMemorySimulator
                         vL3Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
                     }
                     resultCache = transferBlock;
+                } else
+                {
+                    StatisticsGatherer.RecordL2CacheHits();
                 }
 
                 //Replace block in into dL1 and Writeback evicted block if dirty
@@ -228,6 +239,9 @@ namespace VirtualMemorySimulator
 
                 //Push Block to Front of LRU
                 dL1Cache.ReadBlock(resultCache);
+            } else
+            {
+                StatisticsGatherer.RecordDL1CacheTLBHits();
             }
 
 
@@ -253,12 +267,13 @@ namespace VirtualMemorySimulator
 
             if (resultCache == null) //L1 Miss
             {
+                StatisticsGatherer.RecordDL1CacheTLBMisses();
                 //L2 Search
                 resultCache = L2Cache.search(PhysicalAddr24, PageOffset);
 
                 if (resultCache == null) //L2 Miss
                 {
-
+                    StatisticsGatherer.RecordL2CacheMissess();
                     //search L3 (and Mem/Disk)
                     //Might need to indicate TLB pagefault here.
                     resultCache = vL3Cache.search(PhysicalAddr24, PageOffset);
@@ -278,6 +293,9 @@ namespace VirtualMemorySimulator
                         vL3Cache.search(DirtyAddress.Item1, DirtyAddress.Item2);
                     }
                     resultCache = transferBlock;
+                } else
+                {
+                    StatisticsGatherer.RecordL2CacheHits();
                 }
 
                 //Replace block in into dL1 and Writeback evicted block if dirty
@@ -306,6 +324,9 @@ namespace VirtualMemorySimulator
 
                 //Push Block to Front of LRU and set dirty
                 dL1Cache.WriteBlock(resultCache);
+            } else
+            {
+                StatisticsGatherer.RecordDL1CacheTLBHits();
             }
 
 
@@ -320,9 +341,12 @@ namespace VirtualMemorySimulator
 
             if (resultTLB == Constants.NOT_FOUND) //L1TLB Miss
             {
+                StatisticsGatherer.RecordITLBMiss();
                 resultTLB = L2_TLB.searchBanks(VirtualAddress);
                 if (resultTLB == Constants.NOT_FOUND) //L2 TLB Miss
                 {
+                    StatisticsGatherer.RecordITLBMiss();
+
                     //Search Virtual Page Table. This will hit (but simulate pagefaulting)
                     resultvPT = vPT.search(VirtualAddress);
 
@@ -334,6 +358,9 @@ namespace VirtualMemorySimulator
                     {
                         throw new Exception("L2 TLB entry Still not found after service");
                     }
+                }  else
+                {
+                    StatisticsGatherer.RecordITLBHit();
                 }
                 resultTLB = id_TLBParser.generatePTE(VirtualAddress, TLBEntryParser.getPhyicalAddressFromPageTableEntry(resultTLB));
                 iL1_TLB.setEntry_LRU(VirtualAddress, resultTLB);
@@ -342,6 +369,9 @@ namespace VirtualMemorySimulator
                 {
                     throw new Exception("L1 TLB entry Still not found after service");
                 }
+            } else
+            {
+                StatisticsGatherer.RecordITLBHit();
             }
 
             return (uint)resultTLB;
@@ -358,9 +388,11 @@ namespace VirtualMemorySimulator
 
             if (resultTLB == Constants.NOT_FOUND) //L1TLB Miss
             {
+                StatisticsGatherer.RecordDTLBMisses();
                 resultTLB = L2_TLB.searchBanks(VirtualAddress);
                 if (resultTLB == Constants.NOT_FOUND) //L2 TLB Miss
                 {
+                    StatisticsGatherer.RecordITLBMiss();
                     //Search Virtual Page Table. This will hit (but simulate pagefaulting)
                     resultvPT = vPT.search(VirtualAddress);
 
@@ -372,6 +404,9 @@ namespace VirtualMemorySimulator
                     {
                         throw new Exception("L2 TLB entry Still not found after service");
                     }
+                } else
+                {
+                    StatisticsGatherer.RecordITLBHit();
                 }
                 resultTLB = id_TLBParser.generatePTE(VirtualAddress, TLBEntryParser.getPhyicalAddressFromPageTableEntry(resultTLB));
                 dL1_TLB.setEntry_LRU(VirtualAddress, resultTLB);
@@ -380,6 +415,9 @@ namespace VirtualMemorySimulator
                 {
                     throw new Exception("L1 TLB entry Still not found after service");
                 }
+            } else
+            {
+                StatisticsGatherer.RecordDTLBHit();
             }
 
             return (uint)resultTLB;

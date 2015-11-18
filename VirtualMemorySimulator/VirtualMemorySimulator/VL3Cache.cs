@@ -47,23 +47,29 @@ namespace VirtualMemorySimulator
 
             Block retblock = new Block(0, set, Block_Offset, tag);
 
+            StatisticsGatherer.RecordL3CacheAccesses();
+
             if (entries.Contains(retblock))
             {
                 //hit
+                StatisticsGatherer.RecordL3CacheHits();
                 return retblock;
             }
 
             if (rVL3CacheMiss == 1)
             {
-
+                StatisticsGatherer.RecordL3CacheMissess();
                 //Record V3 Cache Miss
                 rMainMemoryMiss = random.Next(1);
                 if(rMainMemoryMiss == 1)
                 {
                     //Page Fault
+                    
+                    StatisticsGatherer.RecordPageFaults();
                 } else
                 {
-                    //Main Memory Miss
+                    //Main Memory Hit
+                    StatisticsGatherer.RecordMemoryAccess();
                 }
 
             }
@@ -71,8 +77,9 @@ namespace VirtualMemorySimulator
             {
                 //Record V3 Hit
                 entries.Add(retblock);
-                
+                StatisticsGatherer.RecordL3CacheHits();
             }
+
 
             return retblock;
         }

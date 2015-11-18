@@ -57,6 +57,8 @@ namespace VirtualMemorySimulator
             ulong PTE_Tag;
             ulong valid;
 
+            StatisticsGatherer.RecordtlbAccesses();
+
             for (int b = 0; b < BANKS; b++)
             {
                 valid = TLBEntryParser.getVBitFromPageTableEntry(entries[b][index]);

@@ -16,6 +16,8 @@ namespace VirtualMemorySimulator.Tests
         {
             Cache L1 = new Cache(Constants.CACHE_TYPE.iL1Cache);
 
+            uint test = StatisticsGatherer.iL1CacheAccesses;
+
             int ENTRIES = L1.SETS * L1.BANKS * 2;
             Block retBlock = null;
             Block[] blocks = new Block[ENTRIES];
@@ -68,6 +70,8 @@ namespace VirtualMemorySimulator.Tests
                 inPhys = Phys36[i];
 
                 retBlock = L1.search(inPhys.Item1, inPhys.Item2);
+
+                
 
                 ret_tag = retBlock.tag;
                 ret_set = retBlock.set;

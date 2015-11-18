@@ -15,6 +15,8 @@ namespace VirtualMemorySimulator
         public int SET_IDX_WIDTH;
         //private byte[][][] entries;
         private uint[][] meta;
+        public delegate void CacheSearchStatisticIncrementer();
+        CacheSearchStatisticIncrementer RecordStat;
 
         //Comment 1
 
@@ -29,6 +31,7 @@ namespace VirtualMemorySimulator
                 BLOCK_SIZE = 64;//bytes
                 TAG_WIDTH = 23;
                 SET_IDX_WIDTH = 7;
+                RecordStat = StatisticsGatherer.RecordiL1CacheAccesses;
             }
             else if(CacheType.Equals(Constants.CACHE_TYPE.dL1Cache))
             {
@@ -37,6 +40,7 @@ namespace VirtualMemorySimulator
                 BLOCK_SIZE = 64;//bytes
                 TAG_WIDTH = 24;
                 SET_IDX_WIDTH = 6;
+                RecordStat = StatisticsGatherer.RecorddL1CacheAccesses;
             } else if (CacheType.Equals(Constants.CACHE_TYPE.L2Cache))
             {
                 SETS = 512;
@@ -44,6 +48,7 @@ namespace VirtualMemorySimulator
                 BLOCK_SIZE = 64;//bytes
                 TAG_WIDTH = 21;
                 SET_IDX_WIDTH = 9;
+                RecordStat = StatisticsGatherer.RecordL2CacheAccessess;
             } else
             {
                 throw new Exception("Passed-in Value is not valid Cache_Type Enumeration. This should not be possible");
@@ -151,6 +156,8 @@ namespace VirtualMemorySimulator
         //Returns the Bank Set Block and Tag for the found block. Null if not found.
         public Block search(uint physical_addr_24, ushort page_offset_12)
         {
+            RecordStat();
+
             uint block_tag;
             byte block_offset;
             ushort set_index;
