@@ -25,6 +25,13 @@ namespace VirtualMemorySimulator
         public static uint dL1CacheAccesses = 0;
         public static uint L2CacheAccesses = 0;
         public static uint L3CacheAccesses = 0;
+        public static uint itlbHits = 0;
+        public static uint dtlbHits = 0;
+        public static uint tlbHits = 0;
+        public static uint iL1CacheHits = 0;
+        public static uint dL1CacheHits = 0;
+        public static uint L2CacheHits = 0;
+        public static uint L3CacheHits = 0;
         public static uint MemoryAccess = 0;
         public static uint DiskAccess = 0;
         public static ulong Cycles = 0;
@@ -75,6 +82,40 @@ namespace VirtualMemorySimulator
         public static void RecordL3CacheMissess()
         {
             L3CacheMisses++;
+        }
+
+        public static void RecordITLBHit()
+        {
+            itlbHits++;
+        }
+
+        public static void RecordDTLBHit()
+        {
+            dtlbHits++;
+        }
+
+        public static void RecordTLBMHit()
+        {
+            tlbHits++;
+        }
+
+        public static void RecordIL1CacheTLBHits()
+        {
+            iL1CacheHits++;
+        }
+
+        public static void RecordDL1CacheTLBHits()
+        {
+            dL1CacheHits++;
+        }
+
+        public static void RecordL2CacheHits()
+        {
+            L2CacheHits++;
+        }
+        public static void RecordL3CacheHits()
+        {
+            L3CacheHits++;
         }
 
         public static void RecordPageFaults()

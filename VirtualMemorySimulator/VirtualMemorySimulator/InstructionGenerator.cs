@@ -25,7 +25,7 @@ namespace VirtualMemorySimulator
             return instructions;
         }
 
-        private static Instruction parseInstruction(String line)
+        public static Instruction parseInstruction(String line)
         {
             line = line.Replace("(", "");
             line = line.Replace(")", "");
@@ -72,7 +72,7 @@ namespace VirtualMemorySimulator
                 while ((address = random.Next(0, AddressSpaceSize - 1)) % 64 != 0)
                     continue;
 
-                operandNumberForInstruction = random.Next(0, numberOfOperands);
+                operandNumberForInstruction = random.Next(1, numberOfOperands);
 
                 value = random.Next(0, (ulong)(loadFrequency + storeFrequency + testBranchFrequency + otherFrequency));
 
