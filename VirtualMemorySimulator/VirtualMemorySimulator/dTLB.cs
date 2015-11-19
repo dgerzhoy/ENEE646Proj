@@ -40,7 +40,7 @@ namespace VirtualMemorySimulator
         public void setEntry_LRU(ulong virtualAddress, ulong value)
         {
 
-            ulong index = id_TLBParser.getPageIndexFromVirtualAddress(virtualAddress); //Get index
+            ulong index = id_TLBParser.getdPageIndexFromVirtualAddress(virtualAddress); //Get index
 
             LRU.Set_LRU(index, ref entries, value);
             
@@ -51,7 +51,7 @@ namespace VirtualMemorySimulator
         //return the constant NOT_FOUND
         public ulong searchBanks(ulong virtualAddress)
         {
-            ulong index = id_TLBParser.getPageIndexFromVirtualAddress(virtualAddress);
+            ulong index = id_TLBParser.getdPageIndexFromVirtualAddress(virtualAddress);
             ulong pageAddressTag = id_TLBParser.getPageAddressTagFromVirtualAddress(virtualAddress);
             ulong pageAddressTagFromPTE = Constants.NOT_FOUND;
             ulong PTE_Tag;
