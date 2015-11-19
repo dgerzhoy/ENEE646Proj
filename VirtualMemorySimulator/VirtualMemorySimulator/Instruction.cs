@@ -18,5 +18,10 @@ namespace VirtualMemorySimulator
             this.numOperands = numOperands;
             this.branchAddress = branchAddress;
         }
+
+        public override string ToString()
+        {
+            return "(" + opcode + "," + numOperands + "," + branchAddress + ")";
+        }
     }
 }

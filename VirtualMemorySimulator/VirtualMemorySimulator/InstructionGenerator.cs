@@ -69,8 +69,16 @@ namespace VirtualMemorySimulator
 
             while (counter < numberOfInstructions)
             {
-                while ((address = random.Next(0, AddressSpaceSize - 1)) % 64 != 0)
-                    continue;
+               /* while ((address = random.Next(0, AddressSpaceSize - 1)) % 64 != 0)
+                    continue;*/
+
+                address = random.Next(0, (AddressSpaceSize - 1)/64);
+                address *= 64;
+
+                if (address % 64 != 0)
+                {
+                    throw new Exception("Address is not 64 bit aligned");
+                }
 
                 operandNumberForInstruction = random.Next(1, numberOfOperands);
 

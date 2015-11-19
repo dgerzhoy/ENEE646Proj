@@ -12,9 +12,13 @@ namespace VirtualMemorySimulator
 {
     public partial class MainForm : Form
     {
+
         public MainForm()
         {
             InitializeComponent();
+            TimeSpan span= DateTime.Now.Subtract(new DateTime(1970,1,1,0,0,0));
+            this.pathToInstructionsFileTextBox.Text = "C:\\VirtualMemorySimulatorInstructions_" + (int) span.TotalSeconds + ".txt";
+            this.logFileTextBox.Text = "C:\\VirtualMemorySimulatorLog_" + (int)span.TotalSeconds + ".txt";
         }
 
 
@@ -70,9 +74,8 @@ namespace VirtualMemorySimulator
             this.l2CacheMisses.Text = StatisticsGatherer.L2CacheMisses.ToString();
             this.L3CacheMissesTextBox.Text = StatisticsGatherer.L3CacheMisses.ToString();
             this.pageFaultsTextBox.Text = StatisticsGatherer.PageFaults.ToString();
-            
 
-
+            cyclesPerInstructionTextBox.Text = ((float)StatisticsGatherer.Cycles / (float) ConfigInfo.NumberOfInstructions).ToString();
 
         }
     }

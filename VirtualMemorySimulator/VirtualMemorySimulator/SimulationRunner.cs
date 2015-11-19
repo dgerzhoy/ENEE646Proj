@@ -65,13 +65,18 @@ namespace VirtualMemorySimulator
 
                 operandAddress = AddressGenerator.GenerateVirtualAddress(ConfigInfo.VirtualAddressSpaceSize) | 0x1000;
 
+                FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "PC: " + PC.ToString());
+
                 for (int i = 0; i < 2 && ConfigInfo.instructions.Count > 0; i++)
                 {
                     instruction = ConfigInfo.instructions.Dequeue();
 
                     if (instruction.opcode == ConfigInfo.LOAD_INSTRUCTION)
                     {
+                        
+                       FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Instruction: " + instruction.ToString()); 
                        mmu.InstructionFetch(PC);
+                      
 
                         operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
                             ConfigInfo.VirtualAddressSpaceSize,
@@ -80,19 +85,31 @@ namespace VirtualMemorySimulator
 
                         while (operandAddresses.Count > 0)
                         {
-                             mmu.OperandFetch(operandAddresses.Dequeue());
-                            //operandAddresses.Dequeue();
-                            if (operandAddresses.Count > 0)
-                                mmu.OperandFetch(operandAddresses.Dequeue());
-                                //operandAddresses.Dequeue();
+                            var operand = operandAddresses.Dequeue();
+
+                            FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Operand: " + operand);
+                            mmu.OperandFetch(operand);
 
                             if (operandAddresses.Count > 0)
-                                mmu.OperandFetch(operandAddresses.Dequeue());
-                                //operandAddresses.Dequeue();
+                            {
+                                operand = operandAddresses.Dequeue();
+
+                                FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Operand: " + operand);
+                                mmu.OperandFetch(operand);
+                            }  
+
+                            if (operandAddresses.Count > 0)
+                            {
+                                operand = operandAddresses.Dequeue();
+
+                                FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Operand: " + operand);
+                                mmu.OperandFetch(operand);
+                            }
                         }
                     }
                     else if (instruction.opcode == ConfigInfo.STORE_INSTRUCTION)
                     {
+                        FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Instruction: " + instruction.ToString()); 
                         mmu.InstructionFetch(PC);
 
                         operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
@@ -102,14 +119,10 @@ namespace VirtualMemorySimulator
 
                         while (operandAddresses.Count > 0)
                         {
-                            mmu.OperandFetch(operandAddresses.Dequeue());
-                           // operandAddresses.Dequeue();
+                            var operand = operandAddresses.Dequeue();
+                            FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Operand: " + operand);
+                            mmu.OperandFetch(operand);
                         }
-                        
-                        //Fetch instructions
-                        //Fetch operands
-                        //make the block dirty (in mmu)
-
                     }
                     else if (instruction.opcode == ConfigInfo.TEST_BRANCH_INSTRUCTION)
                     {
@@ -118,9 +131,12 @@ namespace VirtualMemorySimulator
                         {
                             //branch taken
                             PC = instruction.branchAddress;
+                            FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Branch Taken, PC: " + PC);
                             branchTaken = true;
                             break;
                         }
+
+                        FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Branch Not Taken, PC: " + PC);
                         //No fetch operand
                         //generate new program counter
                         //if branch taken....update PC to braddress

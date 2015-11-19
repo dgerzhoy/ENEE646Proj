@@ -52,44 +52,6 @@
             this.operandLocalityNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.instructionsExecutedTextBox = new System.Windows.Forms.TextBox();
-            this.itlbAccessesTextBox = new System.Windows.Forms.TextBox();
-            this.iTLBAccessTextBox = new System.Windows.Forms.Label();
-            this.dTLBAccess = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tlbAccessesTextBox = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.iL1CacheAccessTextBox = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.dL1AccessTextBox = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.L2CacheAccessTextBox = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.L3CachesAccessTextBox = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.mainMemoryAccessTextBox = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.diskAccessesTextBox = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.iTLBMissesTextBox = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.dTLBMissesTextBox = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.tlbMissesTextBox = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.il1CacheMissesTextBox = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.dl1CacheMissesTextBox = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.l2CacheMisses = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.L3CacheMissesTextBox = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.pageFaultsTextBox = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.cycleTextBox = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
             this.iTLBHitsTextBox = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.L3CacheHitTextBox = new System.Windows.Forms.TextBox();
@@ -104,6 +66,46 @@
             this.label36 = new System.Windows.Forms.Label();
             this.dTLBHitTextBox = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
+            this.cycleTextBox = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.pageFaultsTextBox = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.L3CacheMissesTextBox = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.l2CacheMisses = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.dl1CacheMissesTextBox = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.il1CacheMissesTextBox = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tlbMissesTextBox = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.dTLBMissesTextBox = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.iTLBMissesTextBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.diskAccessesTextBox = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.mainMemoryAccessTextBox = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.L3CachesAccessTextBox = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.L2CacheAccessTextBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.dL1AccessTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.iL1CacheAccessTextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tlbAccessesTextBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.dTLBAccess = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.itlbAccessesTextBox = new System.Windows.Forms.TextBox();
+            this.iTLBAccessTextBox = new System.Windows.Forms.Label();
+            this.instructionsExecutedTextBox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cyclesPerInstructionTextBox = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.operandsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherInstructionFrequencyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testBranchFrequencyNumericUpdDown)).BeginInit();
@@ -380,6 +382,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cyclesPerInstructionTextBox);
+            this.groupBox1.Controls.Add(this.label31);
             this.groupBox1.Controls.Add(this.iTLBHitsTextBox);
             this.groupBox1.Controls.Add(this.label30);
             this.groupBox1.Controls.Add(this.L3CacheHitTextBox);
@@ -438,310 +442,6 @@
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Results";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 25);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(112, 13);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "Instructions Executed:";
-            // 
-            // instructionsExecutedTextBox
-            // 
-            this.instructionsExecutedTextBox.Location = new System.Drawing.Point(137, 18);
-            this.instructionsExecutedTextBox.Name = "instructionsExecutedTextBox";
-            this.instructionsExecutedTextBox.Size = new System.Drawing.Size(117, 20);
-            this.instructionsExecutedTextBox.TabIndex = 1;
-            // 
-            // itlbAccessesTextBox
-            // 
-            this.itlbAccessesTextBox.Location = new System.Drawing.Point(138, 44);
-            this.itlbAccessesTextBox.Name = "itlbAccessesTextBox";
-            this.itlbAccessesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.itlbAccessesTextBox.TabIndex = 3;
-            // 
-            // iTLBAccessTextBox
-            // 
-            this.iTLBAccessTextBox.AutoSize = true;
-            this.iTLBAccessTextBox.Location = new System.Drawing.Point(7, 51);
-            this.iTLBAccessTextBox.Name = "iTLBAccessTextBox";
-            this.iTLBAccessTextBox.Size = new System.Drawing.Size(81, 13);
-            this.iTLBAccessTextBox.TabIndex = 2;
-            this.iTLBAccessTextBox.Text = "iTLB Accesses:";
-            // 
-            // dTLBAccess
-            // 
-            this.dTLBAccess.Location = new System.Drawing.Point(138, 70);
-            this.dTLBAccess.Name = "dTLBAccess";
-            this.dTLBAccess.Size = new System.Drawing.Size(117, 20);
-            this.dTLBAccess.TabIndex = 5;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 77);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(82, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "dTLB Accesses";
-            // 
-            // tlbAccessesTextBox
-            // 
-            this.tlbAccessesTextBox.Location = new System.Drawing.Point(138, 97);
-            this.tlbAccessesTextBox.Name = "tlbAccessesTextBox";
-            this.tlbAccessesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.tlbAccessesTextBox.TabIndex = 7;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(7, 104);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(79, 13);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "TLB Accesses:";
-            // 
-            // iL1CacheAccessTextBox
-            // 
-            this.iL1CacheAccessTextBox.Location = new System.Drawing.Point(138, 125);
-            this.iL1CacheAccessTextBox.Name = "iL1CacheAccessTextBox";
-            this.iL1CacheAccessTextBox.Size = new System.Drawing.Size(117, 20);
-            this.iL1CacheAccessTextBox.TabIndex = 9;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 132);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(112, 13);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "iL1 Caches Accesses:";
-            // 
-            // dL1AccessTextBox
-            // 
-            this.dL1AccessTextBox.Location = new System.Drawing.Point(137, 151);
-            this.dL1AccessTextBox.Name = "dL1AccessTextBox";
-            this.dL1AccessTextBox.Size = new System.Drawing.Size(117, 20);
-            this.dL1AccessTextBox.TabIndex = 11;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 158);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(116, 13);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "dL1 Caches Accesses:";
-            // 
-            // L2CacheAccessTextBox
-            // 
-            this.L2CacheAccessTextBox.Location = new System.Drawing.Point(137, 177);
-            this.L2CacheAccessTextBox.Name = "L2CacheAccessTextBox";
-            this.L2CacheAccessTextBox.Size = new System.Drawing.Size(117, 20);
-            this.L2CacheAccessTextBox.TabIndex = 13;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 184);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(105, 13);
-            this.label17.TabIndex = 12;
-            this.label17.Text = "L2 Cache Accesses:";
-            // 
-            // L3CachesAccessTextBox
-            // 
-            this.L3CachesAccessTextBox.Location = new System.Drawing.Point(138, 203);
-            this.L3CachesAccessTextBox.Name = "L3CachesAccessTextBox";
-            this.L3CachesAccessTextBox.Size = new System.Drawing.Size(117, 20);
-            this.L3CachesAccessTextBox.TabIndex = 15;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 210);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(105, 13);
-            this.label18.TabIndex = 14;
-            this.label18.Text = "L3 Cache Accesses:";
-            // 
-            // mainMemoryAccessTextBox
-            // 
-            this.mainMemoryAccessTextBox.Location = new System.Drawing.Point(137, 229);
-            this.mainMemoryAccessTextBox.Name = "mainMemoryAccessTextBox";
-            this.mainMemoryAccessTextBox.Size = new System.Drawing.Size(117, 20);
-            this.mainMemoryAccessTextBox.TabIndex = 17;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 236);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(122, 13);
-            this.label19.TabIndex = 16;
-            this.label19.Text = "Main Memory Accesses:";
-            // 
-            // diskAccessesTextBox
-            // 
-            this.diskAccessesTextBox.Location = new System.Drawing.Point(137, 255);
-            this.diskAccessesTextBox.Name = "diskAccessesTextBox";
-            this.diskAccessesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.diskAccessesTextBox.TabIndex = 19;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 262);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(80, 13);
-            this.label20.TabIndex = 18;
-            this.label20.Text = "Disk Accesses:";
-            // 
-            // iTLBMissesTextBox
-            // 
-            this.iTLBMissesTextBox.Location = new System.Drawing.Point(738, 44);
-            this.iTLBMissesTextBox.Name = "iTLBMissesTextBox";
-            this.iTLBMissesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.iTLBMissesTextBox.TabIndex = 21;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(607, 51);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(67, 13);
-            this.label21.TabIndex = 20;
-            this.label21.Text = "iTLB Misses:";
-            // 
-            // dTLBMissesTextBox
-            // 
-            this.dTLBMissesTextBox.Location = new System.Drawing.Point(738, 70);
-            this.dTLBMissesTextBox.Name = "dTLBMissesTextBox";
-            this.dTLBMissesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.dTLBMissesTextBox.TabIndex = 23;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(607, 77);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(71, 13);
-            this.label22.TabIndex = 22;
-            this.label22.Text = "dTLB Misses:";
-            // 
-            // tlbMissesTextBox
-            // 
-            this.tlbMissesTextBox.Location = new System.Drawing.Point(738, 96);
-            this.tlbMissesTextBox.Name = "tlbMissesTextBox";
-            this.tlbMissesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.tlbMissesTextBox.TabIndex = 25;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(607, 103);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(65, 13);
-            this.label23.TabIndex = 24;
-            this.label23.Text = "TLB Misses:";
-            // 
-            // il1CacheMissesTextBox
-            // 
-            this.il1CacheMissesTextBox.Location = new System.Drawing.Point(738, 122);
-            this.il1CacheMissesTextBox.Name = "il1CacheMissesTextBox";
-            this.il1CacheMissesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.il1CacheMissesTextBox.TabIndex = 27;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(607, 129);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(98, 13);
-            this.label24.TabIndex = 26;
-            this.label24.Text = "iL1 Caches Misses:";
-            // 
-            // dl1CacheMissesTextBox
-            // 
-            this.dl1CacheMissesTextBox.Location = new System.Drawing.Point(738, 148);
-            this.dl1CacheMissesTextBox.Name = "dl1CacheMissesTextBox";
-            this.dl1CacheMissesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.dl1CacheMissesTextBox.TabIndex = 29;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(607, 155);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(102, 13);
-            this.label25.TabIndex = 28;
-            this.label25.Text = "dL1 Caches Misses:";
-            // 
-            // l2CacheMisses
-            // 
-            this.l2CacheMisses.Location = new System.Drawing.Point(738, 174);
-            this.l2CacheMisses.Name = "l2CacheMisses";
-            this.l2CacheMisses.Size = new System.Drawing.Size(117, 20);
-            this.l2CacheMisses.TabIndex = 31;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(607, 181);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(91, 13);
-            this.label26.TabIndex = 30;
-            this.label26.Text = "L2 Cache Misses:";
-            // 
-            // L3CacheMissesTextBox
-            // 
-            this.L3CacheMissesTextBox.Location = new System.Drawing.Point(738, 203);
-            this.L3CacheMissesTextBox.Name = "L3CacheMissesTextBox";
-            this.L3CacheMissesTextBox.Size = new System.Drawing.Size(117, 20);
-            this.L3CacheMissesTextBox.TabIndex = 33;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(607, 210);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(91, 13);
-            this.label27.TabIndex = 32;
-            this.label27.Text = "L3 Cache Misses:";
-            // 
-            // pageFaultsTextBox
-            // 
-            this.pageFaultsTextBox.Location = new System.Drawing.Point(738, 229);
-            this.pageFaultsTextBox.Name = "pageFaultsTextBox";
-            this.pageFaultsTextBox.Size = new System.Drawing.Size(117, 20);
-            this.pageFaultsTextBox.TabIndex = 35;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(607, 236);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(66, 13);
-            this.label28.TabIndex = 34;
-            this.label28.Text = "Page Faults:";
-            // 
-            // cycleTextBox
-            // 
-            this.cycleTextBox.Location = new System.Drawing.Point(738, 18);
-            this.cycleTextBox.Name = "cycleTextBox";
-            this.cycleTextBox.Size = new System.Drawing.Size(117, 20);
-            this.cycleTextBox.TabIndex = 37;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(607, 25);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(68, 13);
-            this.label29.TabIndex = 36;
-            this.label29.Text = "Total Cycles:";
             // 
             // iTLBHitsTextBox
             // 
@@ -854,6 +554,326 @@
             this.label37.Size = new System.Drawing.Size(57, 13);
             this.label37.TabIndex = 40;
             this.label37.Text = "dTLB Hits:";
+            // 
+            // cycleTextBox
+            // 
+            this.cycleTextBox.Location = new System.Drawing.Point(738, 18);
+            this.cycleTextBox.Name = "cycleTextBox";
+            this.cycleTextBox.Size = new System.Drawing.Size(117, 20);
+            this.cycleTextBox.TabIndex = 37;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(607, 25);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(68, 13);
+            this.label29.TabIndex = 36;
+            this.label29.Text = "Total Cycles:";
+            // 
+            // pageFaultsTextBox
+            // 
+            this.pageFaultsTextBox.Location = new System.Drawing.Point(738, 229);
+            this.pageFaultsTextBox.Name = "pageFaultsTextBox";
+            this.pageFaultsTextBox.Size = new System.Drawing.Size(117, 20);
+            this.pageFaultsTextBox.TabIndex = 35;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(607, 236);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(66, 13);
+            this.label28.TabIndex = 34;
+            this.label28.Text = "Page Faults:";
+            // 
+            // L3CacheMissesTextBox
+            // 
+            this.L3CacheMissesTextBox.Location = new System.Drawing.Point(738, 203);
+            this.L3CacheMissesTextBox.Name = "L3CacheMissesTextBox";
+            this.L3CacheMissesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.L3CacheMissesTextBox.TabIndex = 33;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(607, 210);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(91, 13);
+            this.label27.TabIndex = 32;
+            this.label27.Text = "L3 Cache Misses:";
+            // 
+            // l2CacheMisses
+            // 
+            this.l2CacheMisses.Location = new System.Drawing.Point(738, 174);
+            this.l2CacheMisses.Name = "l2CacheMisses";
+            this.l2CacheMisses.Size = new System.Drawing.Size(117, 20);
+            this.l2CacheMisses.TabIndex = 31;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(607, 181);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(91, 13);
+            this.label26.TabIndex = 30;
+            this.label26.Text = "L2 Cache Misses:";
+            // 
+            // dl1CacheMissesTextBox
+            // 
+            this.dl1CacheMissesTextBox.Location = new System.Drawing.Point(738, 148);
+            this.dl1CacheMissesTextBox.Name = "dl1CacheMissesTextBox";
+            this.dl1CacheMissesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.dl1CacheMissesTextBox.TabIndex = 29;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(607, 155);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(102, 13);
+            this.label25.TabIndex = 28;
+            this.label25.Text = "dL1 Caches Misses:";
+            // 
+            // il1CacheMissesTextBox
+            // 
+            this.il1CacheMissesTextBox.Location = new System.Drawing.Point(738, 122);
+            this.il1CacheMissesTextBox.Name = "il1CacheMissesTextBox";
+            this.il1CacheMissesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.il1CacheMissesTextBox.TabIndex = 27;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(607, 129);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(98, 13);
+            this.label24.TabIndex = 26;
+            this.label24.Text = "iL1 Caches Misses:";
+            // 
+            // tlbMissesTextBox
+            // 
+            this.tlbMissesTextBox.Location = new System.Drawing.Point(738, 96);
+            this.tlbMissesTextBox.Name = "tlbMissesTextBox";
+            this.tlbMissesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.tlbMissesTextBox.TabIndex = 25;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(607, 103);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(65, 13);
+            this.label23.TabIndex = 24;
+            this.label23.Text = "TLB Misses:";
+            // 
+            // dTLBMissesTextBox
+            // 
+            this.dTLBMissesTextBox.Location = new System.Drawing.Point(738, 70);
+            this.dTLBMissesTextBox.Name = "dTLBMissesTextBox";
+            this.dTLBMissesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.dTLBMissesTextBox.TabIndex = 23;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(607, 77);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(71, 13);
+            this.label22.TabIndex = 22;
+            this.label22.Text = "dTLB Misses:";
+            // 
+            // iTLBMissesTextBox
+            // 
+            this.iTLBMissesTextBox.Location = new System.Drawing.Point(738, 44);
+            this.iTLBMissesTextBox.Name = "iTLBMissesTextBox";
+            this.iTLBMissesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.iTLBMissesTextBox.TabIndex = 21;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(607, 51);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(67, 13);
+            this.label21.TabIndex = 20;
+            this.label21.Text = "iTLB Misses:";
+            // 
+            // diskAccessesTextBox
+            // 
+            this.diskAccessesTextBox.Location = new System.Drawing.Point(137, 255);
+            this.diskAccessesTextBox.Name = "diskAccessesTextBox";
+            this.diskAccessesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.diskAccessesTextBox.TabIndex = 19;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 262);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(80, 13);
+            this.label20.TabIndex = 18;
+            this.label20.Text = "Disk Accesses:";
+            // 
+            // mainMemoryAccessTextBox
+            // 
+            this.mainMemoryAccessTextBox.Location = new System.Drawing.Point(137, 229);
+            this.mainMemoryAccessTextBox.Name = "mainMemoryAccessTextBox";
+            this.mainMemoryAccessTextBox.Size = new System.Drawing.Size(117, 20);
+            this.mainMemoryAccessTextBox.TabIndex = 17;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 236);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(122, 13);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "Main Memory Accesses:";
+            // 
+            // L3CachesAccessTextBox
+            // 
+            this.L3CachesAccessTextBox.Location = new System.Drawing.Point(138, 203);
+            this.L3CachesAccessTextBox.Name = "L3CachesAccessTextBox";
+            this.L3CachesAccessTextBox.Size = new System.Drawing.Size(117, 20);
+            this.L3CachesAccessTextBox.TabIndex = 15;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(7, 210);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(105, 13);
+            this.label18.TabIndex = 14;
+            this.label18.Text = "L3 Cache Accesses:";
+            // 
+            // L2CacheAccessTextBox
+            // 
+            this.L2CacheAccessTextBox.Location = new System.Drawing.Point(137, 177);
+            this.L2CacheAccessTextBox.Name = "L2CacheAccessTextBox";
+            this.L2CacheAccessTextBox.Size = new System.Drawing.Size(117, 20);
+            this.L2CacheAccessTextBox.TabIndex = 13;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 184);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(105, 13);
+            this.label17.TabIndex = 12;
+            this.label17.Text = "L2 Cache Accesses:";
+            // 
+            // dL1AccessTextBox
+            // 
+            this.dL1AccessTextBox.Location = new System.Drawing.Point(137, 151);
+            this.dL1AccessTextBox.Name = "dL1AccessTextBox";
+            this.dL1AccessTextBox.Size = new System.Drawing.Size(117, 20);
+            this.dL1AccessTextBox.TabIndex = 11;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 158);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(116, 13);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "dL1 Caches Accesses:";
+            // 
+            // iL1CacheAccessTextBox
+            // 
+            this.iL1CacheAccessTextBox.Location = new System.Drawing.Point(138, 125);
+            this.iL1CacheAccessTextBox.Name = "iL1CacheAccessTextBox";
+            this.iL1CacheAccessTextBox.Size = new System.Drawing.Size(117, 20);
+            this.iL1CacheAccessTextBox.TabIndex = 9;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 132);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(112, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "iL1 Caches Accesses:";
+            // 
+            // tlbAccessesTextBox
+            // 
+            this.tlbAccessesTextBox.Location = new System.Drawing.Point(138, 97);
+            this.tlbAccessesTextBox.Name = "tlbAccessesTextBox";
+            this.tlbAccessesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.tlbAccessesTextBox.TabIndex = 7;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 104);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(79, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "TLB Accesses:";
+            // 
+            // dTLBAccess
+            // 
+            this.dTLBAccess.Location = new System.Drawing.Point(138, 70);
+            this.dTLBAccess.Name = "dTLBAccess";
+            this.dTLBAccess.Size = new System.Drawing.Size(117, 20);
+            this.dTLBAccess.TabIndex = 5;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(82, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "dTLB Accesses";
+            // 
+            // itlbAccessesTextBox
+            // 
+            this.itlbAccessesTextBox.Location = new System.Drawing.Point(138, 44);
+            this.itlbAccessesTextBox.Name = "itlbAccessesTextBox";
+            this.itlbAccessesTextBox.Size = new System.Drawing.Size(117, 20);
+            this.itlbAccessesTextBox.TabIndex = 3;
+            // 
+            // iTLBAccessTextBox
+            // 
+            this.iTLBAccessTextBox.AutoSize = true;
+            this.iTLBAccessTextBox.Location = new System.Drawing.Point(7, 51);
+            this.iTLBAccessTextBox.Name = "iTLBAccessTextBox";
+            this.iTLBAccessTextBox.Size = new System.Drawing.Size(81, 13);
+            this.iTLBAccessTextBox.TabIndex = 2;
+            this.iTLBAccessTextBox.Text = "iTLB Accesses:";
+            // 
+            // instructionsExecutedTextBox
+            // 
+            this.instructionsExecutedTextBox.Location = new System.Drawing.Point(137, 18);
+            this.instructionsExecutedTextBox.Name = "instructionsExecutedTextBox";
+            this.instructionsExecutedTextBox.Size = new System.Drawing.Size(117, 20);
+            this.instructionsExecutedTextBox.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 25);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(112, 13);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Instructions Executed:";
+            // 
+            // cyclesPerInstructionTextBox
+            // 
+            this.cyclesPerInstructionTextBox.Location = new System.Drawing.Point(441, 20);
+            this.cyclesPerInstructionTextBox.Name = "cyclesPerInstructionTextBox";
+            this.cyclesPerInstructionTextBox.Size = new System.Drawing.Size(117, 20);
+            this.cyclesPerInstructionTextBox.TabIndex = 57;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(310, 27);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(112, 13);
+            this.label31.TabIndex = 56;
+            this.label31.Text = "Cycles Per Instruction:";
             // 
             // MainForm
             // 
@@ -980,6 +1000,8 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox dTLBHitTextBox;
         private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox cyclesPerInstructionTextBox;
+        private System.Windows.Forms.Label label31;
 
     }
 }
