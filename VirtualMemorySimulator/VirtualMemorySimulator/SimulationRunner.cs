@@ -78,7 +78,7 @@ namespace VirtualMemorySimulator
                        mmu.InstructionFetch(PC);
                       
 
-                        operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
+                        operandAddresses = LocalityGenerator.GenerateLocality(instruction.branchAddress,
                             ConfigInfo.VirtualAddressSpaceSize,
                             ConfigInfo.DistanceFromInstruction,
                             instruction.numOperands);
@@ -112,7 +112,7 @@ namespace VirtualMemorySimulator
                         FileWriter.WriteStringToFile(ConfigInfo.LogFilePath, "Fetching Instruction: " + instruction.ToString()); 
                         mmu.InstructionFetch(PC);
 
-                        operandAddresses = LocalityGenerator.GenerateLocality(operandAddress,
+                        operandAddresses = LocalityGenerator.GenerateLocality(instruction.branchAddress,
                         ConfigInfo.VirtualAddressSpaceSize,
                         ConfigInfo.DistanceFromInstruction,
                         instruction.numOperands);
