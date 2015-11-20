@@ -255,7 +255,7 @@
             0,
             0});
             this.VirtualAddressSpaceSizeUpDown.Minimum = new decimal(new int[] {
-            8,
+            1,
             0,
             0,
             0});
