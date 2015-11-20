@@ -35,6 +35,7 @@ namespace VirtualMemorySimulator
         public static uint MemoryAccess = 0;
         public static uint DiskAccess = 0;
         public static ulong Cycles = 0;
+        public static ulong Instructions = 0;
 
         private StatisticsGatherer() { }
 
@@ -53,35 +54,63 @@ namespace VirtualMemorySimulator
         public static void RecordITLBMiss()
         {
             itlbMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteiTLBMiss(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordDTLBMisses()
         {
             dtlbMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WritedTLBMiss(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordTLBMisses()
         {
             tlbMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteTLBMiss(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordIL1CacheTLBMisses()
         {
             iL1CacheMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteiL1CacheMiss(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordDL1CacheTLBMisses()
         {
             dL1CacheMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WritedL1CacheMiss(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordL2CacheMissess()
         {
             L2CacheMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteL2CacheMiss(ConfigInfo.LogFilePath);
+            }
         }
         public static void RecordL3CacheMissess()
         {
             L3CacheMisses++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteL3CacheMiss(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordITLBHit()
@@ -121,62 +150,140 @@ namespace VirtualMemorySimulator
         public static void RecordPageFaults()
         {
             PageFaults++;
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.PageFault(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecorditlbAccesses()
         {
             itlbAccesses++;
+            RecordCycle(4);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteiTLBAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecorddtlbAccesses()
         {
             dtlbAccesses++;
+            RecordCycle(4);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WritedTLBAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordtlbAccesses()
         {
             tlbAccesses++;
+            RecordCycle(8);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteTLBAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordiL1CacheAccesses()
         {
             iL1CacheAccesses++;
-            RecordCycle(4);
+            RecordCycle(2); //This is 2 because the Virtual Address translation will occure while this cache is doing set indexing. Saving time.
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WritedL1CacheAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecorddL1CacheAccesses()
         {
             dL1CacheAccesses++;
             RecordCycle(4);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WritedL1CacheAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordL2CacheAccessess()
         {
             L2CacheAccesses++;
             RecordCycle(8);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteL2CacheAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordL3CacheAccesses()
         {
             L3CacheAccesses++;
             RecordCycle(16);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteL3CacheAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordMemoryAccess()
         {
             MemoryAccess++;
             RecordCycle(100);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteMMAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordDiskAccess()
         {
             DiskAccess++;
             RecordCycle(100000);
+            if (ConfigInfo.Log_Accesses)
+            {
+                LogTrace.WriteDISKAccess(ConfigInfo.LogFilePath);
+            }
         }
 
         public static void RecordCycle(ulong cycles)
         {
             Cycles += cycles;
+        }
+
+        public static void RecordInstructions(ulong instructions)
+        {
+            Instructions += instructions;
+        }
+
+        public static void ResetStatistics()
+        {
+            itlbMisses = 0;
+            dtlbMisses = 0;
+            tlbMisses = 0;
+            iL1CacheMisses = 0;
+            dL1CacheMisses = 0;
+            L2CacheMisses = 0;
+            L3CacheMisses = 0;
+            PageFaults = 0;
+            itlbAccesses = 0;
+            dtlbAccesses = 0;
+            tlbAccesses = 0;
+            iL1CacheAccesses = 0;
+            dL1CacheAccesses = 0;
+            L2CacheAccesses = 0;
+            L3CacheAccesses = 0;
+            itlbHits = 0;
+            dtlbHits = 0;
+            tlbHits = 0;
+            iL1CacheHits = 0;
+            dL1CacheHits = 0;
+            L2CacheHits = 0;
+            L3CacheHits = 0;
+            MemoryAccess = 0;
+            DiskAccess = 0;
+            Cycles = 0;
+            Instructions = 0;
         }
     }
 }

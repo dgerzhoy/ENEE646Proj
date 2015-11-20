@@ -37,6 +37,8 @@ namespace VirtualMemorySimulator
         public static String LogFilePath;
         public static Queue<Instruction> instructions;
 
+        public static bool Log_Accesses = false;
+
         private ConfigInfo() { }
 
         public static ConfigInfo Instance

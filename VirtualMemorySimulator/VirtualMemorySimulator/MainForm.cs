@@ -30,6 +30,9 @@ namespace VirtualMemorySimulator
                 addressSpaceSize = addressSpaceSize * 2;
             }
 
+            StatisticsGatherer.ResetStatistics();
+            setComponents();
+
             SimulationRunner runner = new SimulationRunner(this.pathToInstructionsFileTextBox.Text,
                                                             addressSpaceSize,
                                                             UInt64.Parse(numberOfInstructionsNumericUpDown.Text),
@@ -42,13 +45,13 @@ namespace VirtualMemorySimulator
                                                             UInt32.Parse(percentBranchTakenNumbericUpDown.Text),
                                                             UInt64.Parse(operandLocalityNumericUpDown.Text));
             runner.Run();
-
+            StatisticsGatherer.RecordInstructions(ConfigInfo.NumberOfInstructions);
             setComponents();
         }
 
         private void setComponents()
         {
-            this.instructionsExecutedTextBox.Text = ConfigInfo.NumberOfInstructions.ToString();
+            this.instructionsExecutedTextBox.Text = StatisticsGatherer.Instructions.ToString();
             this.itlbAccessesTextBox.Text = StatisticsGatherer.itlbAccesses.ToString();
             this.dTLBAccess.Text = StatisticsGatherer.dtlbAccesses.ToString();
             this.tlbAccessesTextBox.Text = StatisticsGatherer.tlbAccesses.ToString();
@@ -75,8 +78,36 @@ namespace VirtualMemorySimulator
             this.L3CacheMissesTextBox.Text = StatisticsGatherer.L3CacheMisses.ToString();
             this.pageFaultsTextBox.Text = StatisticsGatherer.PageFaults.ToString();
 
-            cyclesPerInstructionTextBox.Text = ((float)StatisticsGatherer.Cycles / (float) ConfigInfo.NumberOfInstructions).ToString();
+            cyclesPerInstructionTextBox.Text = ((float)StatisticsGatherer.Cycles / (float)StatisticsGatherer.Instructions).ToString();
 
         }
+
+        private void ResetStatistics_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LogAccesses_CheckedChanged(object sender, EventArgs e)
+        {
+
+            ConfigInfo.Log_Accesses = this.LogAccesses.Checked;
+
+        }
+        /*
+private void ResetStatistics_button_Click(object sender, EventArgs e)
+{
+
+StatisticsGatherer.ResetStatistics();
+setComponents();
+TimeSpan span = DateTime.Now.Subtract(new DateTime(1970, 1, 1, 0, 0, 0));
+this.pathToInstructionsFileTextBox.Text = "C:\\VirtualMemorySimulatorInstructions_" + (int)span.TotalSeconds + ".txt";
+this.logFileTextBox.Text = "C:\\VirtualMemorySimulatorLog_" + (int)span.TotalSeconds + ".txt";
+
+}*/
     }
 }

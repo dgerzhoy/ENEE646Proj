@@ -52,6 +52,8 @@
             this.operandLocalityNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cyclesPerInstructionTextBox = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.iTLBHitsTextBox = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.L3CacheHitTextBox = new System.Windows.Forms.TextBox();
@@ -104,8 +106,7 @@
             this.iTLBAccessTextBox = new System.Windows.Forms.Label();
             this.instructionsExecutedTextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.cyclesPerInstructionTextBox = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
+            this.LogAccesses = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.operandsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherInstructionFrequencyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testBranchFrequencyNumericUpdDown)).BeginInit();
@@ -442,6 +443,22 @@
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Results";
+            // 
+            // cyclesPerInstructionTextBox
+            // 
+            this.cyclesPerInstructionTextBox.Location = new System.Drawing.Point(441, 20);
+            this.cyclesPerInstructionTextBox.Name = "cyclesPerInstructionTextBox";
+            this.cyclesPerInstructionTextBox.Size = new System.Drawing.Size(117, 20);
+            this.cyclesPerInstructionTextBox.TabIndex = 57;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(310, 27);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(112, 13);
+            this.label31.TabIndex = 56;
+            this.label31.Text = "Cycles Per Instruction:";
             // 
             // iTLBHitsTextBox
             // 
@@ -859,27 +876,23 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Instructions Executed:";
             // 
-            // cyclesPerInstructionTextBox
+            // LogAccesses
             // 
-            this.cyclesPerInstructionTextBox.Location = new System.Drawing.Point(441, 20);
-            this.cyclesPerInstructionTextBox.Name = "cyclesPerInstructionTextBox";
-            this.cyclesPerInstructionTextBox.Size = new System.Drawing.Size(117, 20);
-            this.cyclesPerInstructionTextBox.TabIndex = 57;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(310, 27);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(112, 13);
-            this.label31.TabIndex = 56;
-            this.label31.Text = "Cycles Per Instruction:";
+            this.LogAccesses.AutoSize = true;
+            this.LogAccesses.Location = new System.Drawing.Point(766, 321);
+            this.LogAccesses.Name = "LogAccesses";
+            this.LogAccesses.Size = new System.Drawing.Size(93, 17);
+            this.LogAccesses.TabIndex = 44;
+            this.LogAccesses.Text = "Log Accesses";
+            this.LogAccesses.UseVisualStyleBackColor = true;
+            this.LogAccesses.CheckedChanged += new System.EventHandler(this.LogAccesses_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(896, 639);
+            this.Controls.Add(this.LogAccesses);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.operandLocalityNumericUpDown);
             this.Controls.Add(this.label11);
@@ -906,6 +919,7 @@
             this.Controls.Add(this.startSimulationButton);
             this.Name = "MainForm";
             this.Text = "Awesome Virtual Memory Simulator";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.operandsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherInstructionFrequencyNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testBranchFrequencyNumericUpdDown)).EndInit();
@@ -1002,7 +1016,7 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.TextBox cyclesPerInstructionTextBox;
         private System.Windows.Forms.Label label31;
-
+        private System.Windows.Forms.CheckBox LogAccesses;
     }
 }
 

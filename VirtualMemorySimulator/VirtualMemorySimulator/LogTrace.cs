@@ -84,12 +84,22 @@ namespace VirtualMemorySimulator
             FileWriter.WriteStringToFile(filename, "TLB Access! ");
         }
 
+        public static void WritePTMiss(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "Page Table Miss! ");
+        }
+
+        public static void WritePTAccess(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "Page Table Access! ");
+        }
+
         public static void WriteL2CacheMiss(String filename)
         {
             FileWriter.WriteStringToFile(filename, "L2Cache Miss! ");
         }
 
-        public static void WritedL2CacheAccess(String filename)
+        public static void WriteL2CacheAccess(String filename)
         {
             FileWriter.WriteStringToFile(filename, "L2Cache Access! ");
         }
@@ -112,6 +122,31 @@ namespace VirtualMemorySimulator
         public static void WriteiL1CacheAccess(String filename)
         {
             FileWriter.WriteStringToFile(filename, "iL1Cache Access! ");
+        }
+
+        public static void WriteL3CacheAccess(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "L3Cache Access! ");
+        }
+
+        public static void WriteL3CacheMiss(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "L3Cache Miss! ");
+        }
+
+        public static void WriteMMAccess(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "Main Memory Access! ");
+        }
+
+        public static void WriteMMMiss(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "Main Memory Miss! ");
+        }
+
+        public static void WriteDISKAccess(String filename)
+        {
+            FileWriter.WriteStringToFile(filename, "Main Memory Access! ");
         }
 
         public static void WriteBranchSuccess(String filename)

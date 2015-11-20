@@ -345,7 +345,7 @@ namespace VirtualMemorySimulator
                 resultTLB = L2_TLB.searchBanks(VirtualAddress);
                 if (resultTLB == Constants.NOT_FOUND) //L2 TLB Miss
                 {
-                    StatisticsGatherer.RecordITLBMiss();
+                    StatisticsGatherer.RecordTLBMisses();
 
                     //Search Virtual Page Table. This will hit (but simulate pagefaulting)
                     resultvPT = vPT.search(VirtualAddress);
@@ -360,7 +360,7 @@ namespace VirtualMemorySimulator
                     }
                 }  else
                 {
-                    StatisticsGatherer.RecordITLBHit();
+                    StatisticsGatherer.RecordTLBMHit();
                 }
                 resultTLB = id_TLBParser.generatePTE(VirtualAddress, TLBEntryParser.getPhyicalAddressFromPageTableEntry(resultTLB));
                 iL1_TLB.setEntry_LRU(VirtualAddress, resultTLB);
@@ -392,7 +392,7 @@ namespace VirtualMemorySimulator
                 resultTLB = L2_TLB.searchBanks(VirtualAddress);
                 if (resultTLB == Constants.NOT_FOUND) //L2 TLB Miss
                 {
-                    StatisticsGatherer.RecordITLBMiss();
+                    StatisticsGatherer.RecordTLBMisses();
                     //Search Virtual Page Table. This will hit (but simulate pagefaulting)
                     resultvPT = vPT.search(VirtualAddress);
 
@@ -406,7 +406,7 @@ namespace VirtualMemorySimulator
                     }
                 } else
                 {
-                    StatisticsGatherer.RecordITLBHit();
+                    StatisticsGatherer.RecordTLBMHit();
                 }
                 resultTLB = id_TLBParser.generatePTE(VirtualAddress, TLBEntryParser.getPhyicalAddressFromPageTableEntry(resultTLB));
                 dL1_TLB.setEntry_LRU(VirtualAddress, resultTLB);

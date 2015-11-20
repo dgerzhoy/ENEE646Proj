@@ -56,16 +56,12 @@
     <Compile Include="LocalityGenerator.cs" />
     <Compile Include="LogTrace.cs" />
     <Compile Include="MemoryManagementUnit.cs" />
-    <Compile Include="Search.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="dL1Cache.cs" />
     <Compile Include="dTLB.cs" />
     <Compile Include="id_TLBParser.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Instruction.cs" />
     <Compile Include="iTLB.cs" />
-    <Compile Include="L2Cache.cs" />
-    <Compile Include="OneTwentyEightBitInstruction.cs" />
     <Compile Include="Random64.cs" />
     <Compile Include="SimulationRunner.cs" />
     <Compile Include="StatisticsGatherer.cs" />

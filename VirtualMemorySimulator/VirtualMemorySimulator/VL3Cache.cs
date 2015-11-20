@@ -36,7 +36,7 @@ namespace VirtualMemorySimulator
         public Block search(uint PhysicalAddr24, ushort PageOffset)
         {
             Random random = new Random();
-            int rVL3CacheMiss = random.Next(1);
+            int rVL3CacheMiss = random.Next(2);
             int rMainMemoryMiss;
             ulong PhysicalAddr36 = CacheFieldParser.generatePhysAddr36(PhysicalAddr24, PageOffset);
 
@@ -60,12 +60,12 @@ namespace VirtualMemorySimulator
             {
                 StatisticsGatherer.RecordL3CacheMissess();
                 //Record V3 Cache Miss
-                rMainMemoryMiss = random.Next(1);
+                rMainMemoryMiss = random.Next(2);
                 if(rMainMemoryMiss == 1)
                 {
-                    //Page Fault
+                    //Disk Access
                     
-                    StatisticsGatherer.RecordPageFaults();
+                    StatisticsGatherer.RecordDiskAccess();
                 } else
                 {
                     //Main Memory Hit
